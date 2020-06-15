@@ -28,6 +28,9 @@
 			}
 		},
 		{
+			"path": "pages/videoDetail"
+		},
+		{
 			"path": "pages/login",
 			"style": {
 				"navigationBarTitleText": "登录"
