@@ -1,0 +1,69 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home"
+		},
+		{
+			"path": "pages/classify",
+			"style": {
+				"navigationBarTitleText": "分类"
+			}
+		},
+		{
+			"path": "pages/sancan",
+			"style": {
+				"navigationBarTitleText": "今日三餐"
+			}
+		},
+		{
+			"path": "pages/user",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/agreement",
+			"style": {
+				"navigationBarTitleText": "香哈用户协议"
+			}
+		},
+		{
+			"path": "pages/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+			
+		}
+	],
+	"globalStyle": {
+		"navigationBarBackgroundColor": "#1b1b1f",
+		"navigationBarTitleText": "香哈菜谱",
+		"navigationBarTextStyle": "white",
+		"backgroundTextStyle": "light",
+		"enablePullDownRefresh": false
+	},
+	"tabBar": {
+		"textColor": "#dddddd",
+		"selectedColor": "#000000",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/home",
+				"text": "首页",
+				"iconPath": "static/images/home-icon.png",
+				"selectedIconPath": "static/images/home-active-icon.png"
+			},
+			{
+				"pagePath": "pages/classify",
+				"text": "分类",
+				"iconPath": "static/images/classify-icon.png",
+				"selectedIconPath": "static/images/classify-active-icon.png"
+			},
+			{
+				"pagePath": "pages/user",
+				"text": "我的",
+				"iconPath": "/static/images/user-icon.png",
+				"selectedIconPath": "/static/images/user-active-icon.png"
+			}
+		]
+	}
+}
