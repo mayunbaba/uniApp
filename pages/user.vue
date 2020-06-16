@@ -110,7 +110,6 @@
 							query
 								.select('#nav')
 								.boundingClientRect(rect => {
-									console.log(rect);
 									this.pos.tabsT = rect.top;
 								})
 								.exec();
