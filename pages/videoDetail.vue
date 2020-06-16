@@ -5,7 +5,7 @@
 		<view class="con">
 			<block :class="'video-cloum ' + (model.video.width/model.video.height <= 1 ? '' : 'video-row')">
 				<video :class="'video-cloum ' + (model.video.width/model.video.height <= 1 ? '' : 'video-row')" :src="model.video.url"
-				 :poster="model.video.img" controls="true" objectFit="contain" autoplay="true" id="video">
+				 :poster="model.video.img" controls="true" objectFit="contain" autoplay="true" :id="model.code">
 				</video>
 			</block>
 			<view class="kc-info">
@@ -30,7 +30,7 @@
 				<view class="comment" v-if="model.comment.content">
 					<text class="name">{{model.comment.customer.nickName}}:</text>
 					<text class="contnet">{{model.comment.content}}</text>
-					<view class="go-comment" @click="'goComment(' + model.code + ',' + model.commentNum + ')'" v-if="model.commentNum > 1">
+					<view class="go-comment" @click="goComment(model.code,model.commentNum)" v-if="model.commentNum > 1">
 						查看{{model.commentNum}}条评论>>
 					</view>
 				</view>
@@ -40,8 +40,11 @@
 				<view class="recomm-title-box clearfix">
 					<view class="title">热门推荐</view>
 				</view>
-				<bottomLoadMore :show.sync="showLoading"></bottomLoadMore>
-				<bottomText :show.sync="showBottomText"></bottomText>
+				<block v-for="(item,index) in recipeList" :key="index">
+					<picTextCard :item="item" @click="navTo('/pages/videoDetail?dishCode=' + item.code)" />
+				</block>
+				<bottomLoadMore :show="!showBottomText"></bottomLoadMore>
+				<bottomText :show="showBottomText"></bottomText>
 
 			</view>
 		</view>
@@ -57,7 +60,9 @@
 	import {
 		request
 	} from '@/utils/request';
+	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from '@/components/common/bottomText';
+	import picTextCard from '@/components/common/picTextCard.vue';
 
 	export default {
 		data() {
@@ -65,18 +70,26 @@
 				userInfo: {},
 				oCode: {},
 				model: {},
+				showBottomText: false,
+				recipeList: [],
+				page: 1,
+				videoContext: null,
 			}
+		},
+		components: {
+			BottomText,
+			BottomLoadMore,
+			picTextCard
 		},
 
 		onLoad(options) {
 			this.userInfo = store.state.userInfo;
 			this.oCode.dishCode = options.dishCode;
 			this.getModel();
+			this.getRecipeList();
+
 		},
-		components: {
-			bottomText: BottomText,
-			// bottomBar: BottomBar,
-		},
+
 		methods: {
 			getModel() {
 				tip.loading();
@@ -84,6 +97,17 @@
 					if (res.code == 10000 && res.data) {
 						this.model = res.data;
 						tip.loaded();
+					}
+				});
+			},
+			// 请求相关推荐数据
+			getRecipeList() {
+				request('/baidu/v1/index/hotRecom?code=' + this.oCode.dishCode + '&page=' + this.page).then(res => {
+					if (res.code == 10000 && res.data) {
+						this.recipeList = [...this.recipeList, ...res.data.list];
+						if (res.data.isEnd == 2) {
+							this.showBottomText = true;
+						}
 					}
 				});
 			},
@@ -113,7 +137,13 @@
 					}
 				});
 			},
-
+			// 触底事件
+			onReachBottom() {
+				if (this.showBottomText) return false;
+				this.page++;
+				this.getRecipeList();
+			},
+			
 			goComment(code, num) {
 				utils.xhNavigateTo('/pages/comment?type=2&code=' + code);
 			},
@@ -130,6 +160,8 @@
 
 			// 页面跳转
 			navTo(url, openType) {
+				this.videoContext = uni.createVideoContext(this.model.code);
+				this.videoContext.pause();
 				utils.xhNavigateTo(url, openType);
 			},
 
@@ -137,6 +169,7 @@
 	};
 </script>
 <style lang="less">
+	// 视频页面
 	.recipe-detail-page {
 		height: 100vh;
 
@@ -147,7 +180,6 @@
 
 				.kc-title {
 					display: block;
-					// height: 120rpx;
 					line-height: 56rpx;
 					padding-top: 40rpx;
 					padding-bottom: 14rpx;
@@ -245,49 +277,75 @@
 				}
 			}
 		}
-	}
 
-	.video-cloum {
-		width: 100%;
-		height: 750rpx;
-	}
+		.recomm-box {
+			margin-top: 27rpx;
+			background: #ffffff;
+			padding-bottom: 0rpx;
 
-	.video-row {
-		width: 100%;
-		height: 423rpx;
-	}
+			.recomm-title-box {
+				padding: 40rpx 40rpx 0;
 
-	.video-title {
-		font-size: 32rpx;
-		color: #333333;
-		line-height: 46rpx;
-		margin: 32rpx 0rpx;
-	}
+				.title {
+					font-size: 36rpx;
+					font-weight: 700;
+					color: #444444;
+				}
 
-	.comment {
-		background: #f5f5f5;
-		border-radius: 8rpx;
-		padding: 22rpx 25rpx 17rpx;
-
-		.name {
-			font-size: 28rpx;
-			color: #3e3e3e;
-			letter-spacing: 0;
-			line-height: 36rpx;
-			font-weight: 700;
+				.more {
+					float: right;
+					font-size: 26rpx;
+					color: #999999;
+					padding-top: 8rpx;
+				}
+			}
 		}
 
-		.contnet {
-			font-size: 28rpx;
-			color: #3e3e3e;
-			letter-spacing: 0;
-			line-height: 36rpx;
+		.video-cloum {
+			width: 100%;
+			height: 750rpx;
+			background-color: #000000;
 		}
 
-		.go-comment {
-			font-size: 26rpx;
-			color: #1f83c6;
-			padding-top: 12rpx;
+		.video-row {
+			width: 100%;
+			height: 423rpx;
+			background-color: #000000;
+		}
+
+		.video-title {
+			font-size: 32rpx;
+			color: #333333;
+			line-height: 46rpx;
+			margin: 32rpx 0rpx;
+		}
+
+		.comment {
+			background: #f5f5f5;
+			border-radius: 8rpx;
+			padding: 22rpx 25rpx 17rpx;
+
+			.name {
+				font-size: 28rpx;
+				color: #3e3e3e;
+				letter-spacing: 0;
+				line-height: 36rpx;
+				font-weight: 700;
+			}
+
+			.contnet {
+				font-size: 28rpx;
+				color: #3e3e3e;
+				letter-spacing: 0;
+				line-height: 36rpx;
+			}
+
+			.go-comment {
+				font-size: 26rpx;
+				color: #1f83c6;
+				padding-top: 12rpx;
+			}
 		}
 	}
+
 </style>
