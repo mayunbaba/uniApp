@@ -27,7 +27,7 @@
 			},
 		},
 		methods: {
-			nav(){
+			nav() {
 				this.$emit('click');
 			}
 		},
