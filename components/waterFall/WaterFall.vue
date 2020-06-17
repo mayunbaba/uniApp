@@ -67,7 +67,6 @@
 					}
 				}
 				query.exec(res => {
-					console.log(res);
 					itemH = res.map((item) => {
 						if (item) {
 							return item.height
