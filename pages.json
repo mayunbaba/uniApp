@@ -37,6 +37,12 @@
 			"path": "pages/recipeDetail"
 		},
 		{
+			"path": "pages/h5"
+		},
+		{
+			"path": "pages/videoRecipesList"
+		},
+		{
 			"path": "pages/login",
 			"style": {
 				"navigationBarTitleText": "登录"

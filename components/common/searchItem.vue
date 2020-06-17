@@ -42,8 +42,6 @@
 </script>
 
 <style lang="less" scoped>
-	
-
 	.item-con-btn {
 		margin: 36rpx 40rpx;
 		display: flex;
@@ -67,6 +65,7 @@
 				position: absolute;
 				right: 10rpx;
 				bottom: 10rpx;
+
 				.bf-time-con {
 					font-size: 20rpx;
 					color: #fff;
@@ -151,13 +150,12 @@
 				}
 			}
 		}
-
 	}
 
 	.ellipsis {
 		display: block;
 		overflow: hidden;
-		text-overflow:ellipsis;
+		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 </style>

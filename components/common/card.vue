@@ -2,9 +2,11 @@
 	<view class="item-one">
 		<view @click="navTo('/pages/recipeDetail?dishCode=' + item.code + '')">
 			<view class="info">
-				<image :src="item.img" class="info-img">
+				<view class="info-img-wrap">
+					<image :src="item.img" class="info-img"></image>
 					<image v-if="item.isVideo == 2" src="/static/images/bf-btn.png" class="bf-btn ps-center"></image>
-				</image>
+				</view>
+
 				<text class="title ellipsis">{{item.title}}</text>
 				<view class="info-profiles clearfix">
 					<text>{{item.customer.nickName}}</text>
@@ -38,8 +40,8 @@
 <style lang="less" scoped>
 	.item-one {
 		width: 670rpx;
-		padding: 30rpx 0;
-		margin-left: 40rpx;
+		padding-top: 30rpx;
+		margin: 30rpx auto;
 		border-top: 1rpx solid #e9e9e9;
 
 		.info-img {
@@ -47,11 +49,21 @@
 			position: relative;
 			width: 100%;
 			height: 402rpx;
+			border-radius: 6rpx;
+		}
+		.info-img-wrap{
+			position: relative;
+		}
+		.bf-btn {
+			width: 96rpx;
+			height: 96rpx;
+		}
 
-			.bf-btn {
-				width: 96rpx;
-				height: 96rpx;
-			}
+		.ps-center {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
 		}
 
 		.title {
@@ -90,6 +102,13 @@
 
 		&:nth-child(1) {
 			border-top: none;
+			padding-top: 10rpx;
 		}
+	}
+	.ellipsis {
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 </style>

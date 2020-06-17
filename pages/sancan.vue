@@ -13,9 +13,9 @@
 		<swiper style="height:100%;width:100%" :current="activeIndex" @change="swiperTab">
 			<swiper-item v-for="($item, $index) in list" :key="$index">
 				<scroll-view scroll-y class="swiper-scroll" @scrolltolower="more">
-					<view v-for="(item, index) in $item" :key="index">
+					<block v-for="(item, index) in $item" :key="index">
 						<Card :item="item"></Card>
-					</view>
+					</block>
 					<view class="bot-box">
 						<!--加载更多时动画-->
 						<bottomLoadMore :show.sync="showLoading"></bottomLoadMore>
