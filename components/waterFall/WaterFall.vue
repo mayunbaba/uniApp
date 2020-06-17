@@ -3,7 +3,7 @@
 		<div v-for="(item,index) in waterData" :key="index">
 			<div :class='"item"+index'>
 				<div v-for="($item,$index) in item" :key="$index">
-					<DishItem :item="$item" :imgWid.async="imgWid"></DishItem>
+					<DishItem :item="$item" :imgWid="imgWid"></DishItem>
 				</div>
 			</div>
 		</div>
@@ -54,19 +54,24 @@
 				if (item == null) {
 					return;
 				}
-				let query = uni.createSelectorQuery().in(this);
+				let query = uni.createSelectorQuery();
 				for (let i = 0; i < this.col; i++) {
 					try {
-						query.select(".item" + i).boundingClientRect();
+						query
+							// #ifdef MP-WEIXIN
+							.in(this)
+							// #endif
+							.select(".item" + i).boundingClientRect();
 					} catch {
 						console.log('无法获取dom元素')
 					}
 				}
 				query.exec(res => {
+					console.log(res);
 					itemH = res.map((item) => {
-						if(item){
+						if (item) {
 							return item.height
-						}else{
+						} else {
 							return 0
 						}
 					});
@@ -85,18 +90,22 @@
 			this.list = JSON.parse(JSON.stringify(this.allData));
 			this.$nextTick(() => {
 				this.updateWaterfall();
-				let query = uni.createSelectorQuery().in(this);
+				let query = uni.createSelectorQuery();
 				query
+					// #ifdef MP-WEIXIN
+					.in(this)
+					// #endif
 					.select('.water-fall')
 					.boundingClientRect(res => {
-						if(res){
+						console.log(res);
+						if (res) {
 							this.imgWid = (res.width - 15) / this.col;
 						}
 					})
 					.exec();
 			});
-			
-			
+
+
 		}
 	};
 </script>

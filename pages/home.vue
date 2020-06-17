@@ -62,7 +62,7 @@
 	export default {
 		components: {
 			searchBar,
-			HomeTab
+			HomeTab,
 		},
 		data() {
 			return {
@@ -74,7 +74,7 @@
 				indicatorActiveColor: '#fff',
 				modelList: {},
 				scrollActive:false,
-				// 微信小程序无法获取子组件DOM大小，需要设置默认值 
+				// 设置默认值，以防获取不到
 				pos:{
 					"searchH":53,
 					"tabsT":482
@@ -86,16 +86,25 @@
 		},
 		created() {
 			this.$nextTick(() => {
-				let query = uni.createSelectorQuery().in(this);
+				// this.$children[0] 角标为组件在页面的引入顺序
+				let query = uni.createSelectorQuery();
 				query
+					// #ifdef MP-WEIXIN
+					.in(this.$children[1].$children[0])
+					// #endif
 					.select('.tabs-wrap')
 					.boundingClientRect(rect => {
+						console.log(rect);
 						if(rect){
 							this.pos.tabsT = rect.top;
 						}
 					})
+					// #ifdef MP-WEIXIN
+					.in(this.$children[0])
+					// #endif
 					.select('.go-search')
 					.boundingClientRect(rect => {
+						console.log(rect);
 						if(rect){
 							this.pos.searchH = rect.height;
 						}
