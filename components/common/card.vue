@@ -44,6 +44,11 @@
 		margin: 30rpx auto;
 		border-top: 1rpx solid #e9e9e9;
 
+		&:nth-child(1) {
+			border-top: none;
+			padding-top: 10rpx;
+		}
+
 		.info-img {
 			display: block;
 			position: relative;
@@ -51,9 +56,11 @@
 			height: 402rpx;
 			border-radius: 6rpx;
 		}
-		.info-img-wrap{
+
+		.info-img-wrap {
 			position: relative;
 		}
+
 		.bf-btn {
 			width: 96rpx;
 			height: 96rpx;
@@ -63,7 +70,7 @@
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			transform: translate(-50%,-50%);
+			transform: translate(-50%, -50%);
 		}
 
 		.title {
@@ -100,11 +107,9 @@
 			}
 		}
 
-		&:nth-child(1) {
-			border-top: none;
-			padding-top: 10rpx;
-		}
+
 	}
+
 	.ellipsis {
 		display: block;
 		overflow: hidden;

@@ -43,6 +43,9 @@
 			"path": "pages/videoRecipesList"
 		},
 		{
+			"path": "pages/menuDetail"
+		},
+		{
 			"path": "pages/login",
 			"style": {
 				"navigationBarTitleText": "登录"
