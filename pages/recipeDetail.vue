@@ -3,7 +3,7 @@
 	<view class="recipe-detail-page">
 		<form @submit="submit" report-submit="false">
 			<view class="con">
-				<video v-if="model.isVideo == 2" class="video-box" :src="model.video.url" :poster="model.img" controls>
+				<video v-if="model.isVideo == 2" class="video-box" :src="model.video.url" :poster="model.img" controls @error="onPlayError">
 				</video>
 				<image v-else class="video-box img-box" :src="model.img"></image>
 				<view class="kc-info">
@@ -143,25 +143,8 @@
 					<bottomText :show.sync="showBottomText"></bottomText>
 				</view>
 			</view>
-			<BottomBar :item="model" @setLike="setLike" @goPage="navTo('/pages/search?code=' + barText)"></BottomBar>
-			<!-- <newBottomBar :model.sync="model" :showRemind.sync="showRemind" @setLike.user="setLike" @goPage.user="goPage"></newBottomBar> -->
-			<!-- <view class="fix-bottom">
-				<view class="item welfare" @click="goWelfare">
-					去商城逛逛>>
-				</view>
-				<view class="item more" @click="navTo('/pages/search?code=' + barText)">
-					查看更多菜谱>>
-				</view>
-				<view class="like" @click="setLike">
-					<image src="/static/images/like.png" class="icon" v-if="model.isFavorites == 2"></image>
-					<image src="/static/images/like-gray.png" class="icon" v-else></image>
-					<view class="text">收藏</view>
-				</view>
-				<view class="share" @click="goShare">
-					<image src="/static/images/share.png" class="icon"></image>
-					<view class="text">分享</view>
-				</view>
-			</view> -->
+			<!-- <BottomBar :item="model" @setLike="setLike" @goPage="navTo('/pages/search?code=' + barText)"></BottomBar> -->
+
 		</form>
 	</view>
 
@@ -244,7 +227,6 @@
 				request('/baidu/v1/Dish/topInfo', params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.model = res.data;
-						console.log(this.model);
 						this.barText = res.data.name;
 						this.baiduData = res.data.baidu_supply_infos;
 						this.sorce = [];
@@ -314,6 +296,10 @@
 				});
 			},
 
+			onPlayError(e) {
+				console.log('onPlayError, e=' + JSON.stringify(e));
+			},
+
 
 			//预览图片
 			previewImage(url) {
@@ -323,7 +309,7 @@
 				});
 			},
 
-			
+
 
 			openMaterial() {
 				this.materialList = this.materialListTotal;
