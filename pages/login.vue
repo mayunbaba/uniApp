@@ -159,10 +159,9 @@
 			back() {
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 				let curRoute = routes[routes.length - 2].route // 获取当前页面路由，也就是最后一个打开的页面路由
-				console.log(curRoute);
-				if (curRoute.indexOf('user') || curRoute.indexOf('message')) {
+				if (curRoute.indexOf('user') > -1 || curRoute.indexOf('message') > -1) {
 					uni.reLaunch({
-						url: '/'+curRoute
+						url: '/' + curRoute
 					});
 				} else {
 					uni.navigateBack({
