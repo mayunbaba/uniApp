@@ -135,18 +135,21 @@
 						<view class="title">为你推荐</view>
 						<navigator class="more" :url="'/pages/search?code=' + model.name" hover-class="none">查看全部</navigator>
 					</view>
-					<image :src="nyfData.img" @click="navTo('/pages/h5?path=' + nyfData.url,'','0')" class="nyf-banner" mode="aspectFit"
+					<image :src="nyfData.img" @click="navTo('/pages/h5?path=' + nyfData.url,'')" class="nyf-banner" mode="aspectFit"
 					 v-if="nyfData.img"></image>
-
+					<block v-for="item in recipeList" :key="item">
+						<searchItem :item="item" @click="navTo('/pages/recipeDetail?dishCode=' + item.code,openType)"></searchItem>
+					</block>
 					<bottomText :show.sync="showBottomText"></bottomText>
 				</view>
 			</view>
-			<view class="fix-bottom">
+			<BottomBar :item="model" @setLike="setLike" @goPage="navTo('/pages/search?code=' + barText)"></BottomBar>
+			<!-- <newBottomBar :model.sync="model" :showRemind.sync="showRemind" @setLike.user="setLike" @goPage.user="goPage"></newBottomBar> -->
+			<!-- <view class="fix-bottom">
 				<view class="item welfare" @click="goWelfare">
 					去商城逛逛>>
-					<!-- <image src="/static/images/watch.png" class="icon"></image> -->
 				</view>
-				<view class="item more" @click="goPage">
+				<view class="item more" @click="navTo('/pages/search?code=' + barText)">
 					查看更多菜谱>>
 				</view>
 				<view class="like" @click="setLike">
@@ -158,7 +161,7 @@
 					<image src="/static/images/share.png" class="icon"></image>
 					<view class="text">分享</view>
 				</view>
-			</view>
+			</view> -->
 		</form>
 	</view>
 
@@ -172,6 +175,8 @@
 	} from '@/utils/request.js';
 	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from "@/components/common/bottomText";
+	import searchItem from '@/components/common/searchItem.vue';
+	import BottomBar from '@/components/common/bottomBar.vue';
 
 	export default {
 		data() {
@@ -188,14 +193,14 @@
 				// 用料数据
 				materialListTotal: [],
 				//用料总数据
-				isOpen: true,  //用料是否展开
+				isOpen: true, //用料是否展开
 				skillList: {},
 				// 小技巧数据
 				wouldList: {},
 				// 做法数据
 				wouldListTotal: {},
 				//做法总数居
-				isOpenWould: true,  //做法是否展开
+				isOpenWould: true, //做法是否展开
 				baiduData: '',
 				sorce: [],
 				recipeList: [],
@@ -207,16 +212,16 @@
 				showBottomText: true,
 				// 显示底部语
 				makeUrl: [],
-				pageInfo:null
+				pageInfo: null
 			};
 		},
 
 		onLoad(options) {
 			// 页面初始化 options为页面跳转所带来的参数
 			var that = this;
+			that.userInfo = this.$store.state.userInfo;
 			tip.loading();
-			// that.oCode.dishCode = options.dishCode;
-			that.oCode.dishCode = "89750471";
+			that.oCode.dishCode = options.dishCode;
 			that.getModel();
 			that.getMaterialList(); // 获取用料数据
 			that.getWouldList(); // 做法数据
@@ -227,6 +232,8 @@
 		components: {
 			BottomLoadMore,
 			BottomText,
+			searchItem,
+			BottomBar
 		},
 		methods: {
 			getModel() {
@@ -316,32 +323,7 @@
 				});
 			},
 
-			goShare() {
-				// 目前不支持分享
-				// uni.openShare({
-				// 	title: this.pageInfo.title,
-				// 	content: this.pageInfo.description,
-				// 	success: res => {
-				// 		swan.showToast({
-				// 			title: '分享成功'
-				// 		});
-				// 		console.log('openShare success', res);
-				// 	},
-				// 	fail: err => {
-				// 		console.log('openShare fail', err);
-				// 	}
-				// });
-			},
-
-			goPage() {
-				utils.xhNavigateTo('/pages/search?code=' + this.barText);
-			},
-
-			goHome() {
-				uni.switchTab({
-					url: '/pages/home?'
-				});
-			},
+			
 
 			openMaterial() {
 				this.materialList = this.materialListTotal;
@@ -354,19 +336,14 @@
 			},
 
 			// 页面跳转
-			navTo(url, openType, index) {
-				if (typeof index == 'number' || typeof index == 'string') {
-					// swan.reportAnalytics('dish_banner', {
-					// 	index: index
-					// });
-				}
+			navTo(url, openType) {
 				utils.xhNavigateTo(url, openType);
 			},
 
 			// 收藏
 			setLike() {
 				let that = this;
-				if (!that.userInfo) {
+				if (!that.userInfo.code) {
 					utils.xhNavigateTo('/pages/login?');
 					return;
 				}
@@ -703,18 +680,20 @@
 							width: 100%;
 							padding: 18rpx 0;
 							border-top: 0.5px solid #ececec;
+							display: flex;
 
 							.l {
-								float: left;
+								// float: left;
 								width: 60%;
 								font-size: 34rpx;
 							}
 
 							.r {
-								float: left;
+								// float: left;
 								width: 30%;
 								font-size: 34rpx;
 								text-align: right;
+								margin-right: 20rpx;
 							}
 
 							image {
@@ -962,7 +941,6 @@
 				border-top: 15rpx solid #f3f3f3;
 				margin-top: 40rpx;
 				background: #ffffff;
-				padding-bottom: 100rpx;
 
 				.recomm-title-box {
 					padding: 32rpx 40rpx;
@@ -1142,7 +1120,7 @@
 		width: 100%;
 		height: 110rpx;
 		padding: 20rpx 30rpx;
-		background: rgba(243, 243, 243uni 0.95);
+		background: rgba(243, 243, 243, 0.95);
 		display: flex;
 		justify-content: space-between;
 

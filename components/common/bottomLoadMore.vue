@@ -14,9 +14,6 @@
 		data() {
 			return {};
 		},
-
-		mixins: [],
-		components: {},
 		props: {
 			show: {
 				type: Boolean,
@@ -26,9 +23,6 @@
 				default: "拼命加载中"
 			}
 		},
-		methods: {},
-		computed: {},
-		watch: {}
 	};
 </script>
 <style lang="less">

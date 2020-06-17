@@ -15,8 +15,6 @@
 			return {};
 		},
 
-		mixins: [],
-		components: {},
 		props: {
 			show: {
 				type: Boolean,
@@ -26,9 +24,6 @@
 				default: "学名厨做菜，用香哈"
 			}
 		},
-		methods: {},
-		computed: {},
-		watch: {}
 	};
 </script>
 <style lang="less">
