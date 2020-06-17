@@ -145,6 +145,7 @@
 							this.recentSearch.splice(this.recentSearch.indexOf(this.keywords), 1);
 						}
 						that.recentSearch.unshift(that.keywords);
+						that.recentSearch = that.recentSearch.splice(0,15);
 						uni.setStorageSync('recentSearch', that.recentSearch);
 					} else {
 						that.noSearchResult = true;
