@@ -143,7 +143,7 @@
 					<bottomText :show.sync="showBottomText"></bottomText>
 				</view>
 			</view>
-			<!-- <BottomBar :item="model" @setLike="setLike" @goPage="navTo('/pages/search?code=' + barText)"></BottomBar> -->
+			<BottomBar :item="model" @setLike="setLike" @goPage="navTo('/pages/search?code=' + barText)"></BottomBar>
 
 		</form>
 	</view>
