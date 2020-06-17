@@ -54,7 +54,7 @@
 				if (item == null) {
 					return;
 				}
-				let query = uni.createSelectorQuery();
+				let query = uni.createSelectorQuery().in(this);
 				for (let i = 0; i < this.col; i++) {
 					try {
 						query.select(".item" + i).boundingClientRect();
@@ -64,7 +64,11 @@
 				}
 				query.exec(res => {
 					itemH = res.map((item) => {
-						return item.height;
+						if(item){
+							return item.height
+						}else{
+							return 0
+						}
 					});
 					viewShortIndex = itemH.indexOf(Math.min.apply(Math, itemH));
 					this.waterData[viewShortIndex].push(item);
@@ -81,14 +85,18 @@
 			this.list = JSON.parse(JSON.stringify(this.allData));
 			this.$nextTick(() => {
 				this.updateWaterfall();
+				let query = uni.createSelectorQuery().in(this);
+				query
+					.select('.water-fall')
+					.boundingClientRect(res => {
+						if(res){
+							this.imgWid = (res.width - 15) / this.col;
+						}
+					})
+					.exec();
 			});
-			let query = uni.createSelectorQuery();
-			query
-				.select('.water-fall')
-				.boundingClientRect(res => {
-					this.imgWid = (res.width - 15) / this.col;
-				})
-				.exec();
+			
+			
 		}
 	};
 </script>

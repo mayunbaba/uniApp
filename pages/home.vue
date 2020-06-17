@@ -74,9 +74,10 @@
 				indicatorActiveColor: '#fff',
 				modelList: {},
 				scrollActive:false,
+				// 微信小程序无法获取子组件DOM大小，需要设置默认值 
 				pos:{
-					"searchH":0,
-					"tabsT":0
+					"searchH":53,
+					"tabsT":482
 				}
 			}
 		},
@@ -85,15 +86,19 @@
 		},
 		created() {
 			this.$nextTick(() => {
-				let query = uni.createSelectorQuery();
+				let query = uni.createSelectorQuery().in(this);
 				query
 					.select('.tabs-wrap')
 					.boundingClientRect(rect => {
-						this.pos.tabsT = rect.top;
+						if(rect){
+							this.pos.tabsT = rect.top;
+						}
 					})
 					.select('.go-search')
 					.boundingClientRect(rect => {
-						this.pos.searchH = rect.height;
+						if(rect){
+							this.pos.searchH = rect.height;
+						}
 					})
 					.exec();
 			})

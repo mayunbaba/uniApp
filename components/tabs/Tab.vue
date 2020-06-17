@@ -10,7 +10,7 @@
     <view class="text-wrap">
       <text class="title">{{title}}</text>
     </view>
-    <view :style="activeStyle"></view>
+    <view  :class="{'bottom-line':isActive}"></view>
   </view>
 </template>
 
@@ -44,12 +44,6 @@ export default {
     activeStyle() {
       return this.isActive
         ? {
-            position: "absolute",
-            bottom: "0",
-            left: "50%",
-            transform: "translate(-50%,0)",
-            width: "47px",
-            height: "3px",
             background: this.activeColor
           }
         : {};
@@ -78,5 +72,14 @@ export default {
     height: 24px;
     vertical-align: middle;
   }
+	.bottom-line{
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translate(-50%,0);
+		width: 47px;
+		height: 3px;
+		background: #f00;
+	}
 }
 </style>

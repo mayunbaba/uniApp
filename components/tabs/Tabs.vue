@@ -20,6 +20,7 @@
 			width: 100%;
 			height: 88rpx;
 			display: flex;
+			justify-content: space-around;
 			background-color: #FFFFFF;
 			border-bottom:1rpx solid #eee;
 		}
