@@ -304,12 +304,11 @@
 
 	.top-search .delete-icon {
 		position: absolute;
-		width: 20rpx;
-		height: 20rpx;
+		width: 38rpx;
+		height: 38rpx;
 		left: 582rpx;
 		top: 24rpx;
 		z-index: 1000;
-		padding: 9rpx;
 	}
 
 	.top-search .search-icon {
