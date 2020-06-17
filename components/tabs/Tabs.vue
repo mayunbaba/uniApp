@@ -1,9 +1,10 @@
 <template>
-	<view class="tabs-wrap" >
-		<view class="tabs" >
+	<view class="tabs-wrap">
+		<view class="tabs">
 			<slot></slot>
 		</view>
 	</view>
+
 </template>
 
 <script>
@@ -22,7 +23,7 @@
 			display: flex;
 			justify-content: space-around;
 			background-color: #FFFFFF;
-			border-bottom:1rpx solid #eee;
+			border-bottom: 1rpx solid #eee;
 		}
 	}
 </style>

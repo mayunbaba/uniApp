@@ -1,9 +1,9 @@
 <template>
 	<view class="home-tab">
-		<tabs>
-			<tab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name" activeColor="red" v-model="activeIndex"
-			 @click="tabChange"></tab>
-		</tabs>
+		<xhtabs>
+			<xhtab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name" activeColor="red" v-model="activeIndex"
+			 @click="tabChange"></xhtab>
+		</xhtabs>
 		<block v-for="(item,index) in tabData" :key="index" v-if="index === activeIndex">
 			<scroll-view :scroll-y="scrollActive" @scrolltolower="getRecomData" class="scroll-wrap">
 				<WaterFall :allData="item" :index="index" :col="2"></WaterFall>
@@ -21,8 +21,8 @@
 	import {
 		request
 	} from "@/utils/request.js";
-	import tabs from '@/components/tabs/Tabs.vue';
-	import tab from '@/components/tabs/Tab.vue';
+	import xhtabs from '@/components/tabs/Tabs.vue';
+	import xhtab from '@/components/tabs/Tab.vue';
 	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from "@/components/common/bottomText";
 	import WaterFall from "@/components/waterFall/WaterFall.vue";
@@ -30,8 +30,8 @@
 	export default {
 		name: "HomeTab",
 		components: {
-			tabs,
-			tab,
+			xhtabs,
+			xhtab,
 			WaterFall,
 			BottomLoadMore,
 			BottomText,
