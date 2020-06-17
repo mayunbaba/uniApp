@@ -48,6 +48,7 @@
 				</view>
 			</view>
 			<HomeTab :scrollActive ="scrollActive"></HomeTab>
+			<page-foot></page-foot>
 		</view>
 	</view>
 </template>
