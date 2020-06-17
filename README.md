@@ -5,8 +5,8 @@ vuex store挂载到vue父类（需要采用mapState，mapMutations来使用）
 createSelectorQuery
 	微信中需要添加.in(this)  this为DOM节点所在组件，this.$children[0] 角标为组件在页面的引入顺序
 	其他小程序添加 .in(this) 可能无法获取到组件，所以需要条件编译
-父组件传递对象（model）到子组件 
-	支付宝小程序报错（未解决）
+父组件传递对象到子组件 
+	支付宝小程序无规律报错（忽略）
  
  待开发部分
 视频页面切换到视频页面，video出错，无法展示

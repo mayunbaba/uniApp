@@ -41,7 +41,7 @@
 					<view class="title">热门推荐</view>
 				</view>
 				<block v-for="(item,index) in recipeList" :key="index">
-					<picTextCard :item="item" @click="navTo('/pages/videoDetail?dishCode=' + item.code)" />
+					<picTextCard :item="item" @click="navTo('/pages/videoDetail?dishCode=' + item.code,'redirect')" />
 				</block>
 				<bottomLoadMore :show="!showBottomText"></bottomLoadMore>
 				<bottomText :show="showBottomText"></bottomText>
