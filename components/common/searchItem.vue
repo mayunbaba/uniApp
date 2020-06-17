@@ -11,10 +11,10 @@
 		</view>
 
 		<view class="con-r">
-			<text class="title ellipsis">
+			<view class="title ellipsis">
 				<text class="h4 ellipsis">{{item.title}}</text>
 				<text v-if="item.isFine==2" class="jing">精</text>
-			</text>
+			</view>
 			<text class="yongliao ellipsis">{{item.ingreMian}}</text>
 			<text class="author min-sty-hui">{{item.nickName}}</text>
 			<view class="min-con clearfix">
@@ -98,9 +98,10 @@
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-
+				flex-wrap: nowrap;
 				.h4 {
 					width: 252rpx;
+					height: 56rpx;
 				}
 
 				.jing {
