@@ -45,9 +45,6 @@
 		{
 			"path": "pages/menuDetail"
 		},
-		{
-			"path": "custom-tab-bar/index"
-		},
 		
 		{
 			"path": "pages/login",
