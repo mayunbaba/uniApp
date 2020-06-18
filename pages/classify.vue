@@ -84,8 +84,9 @@
 </script>
 <style lang="less">
 	.classify-box {
+		box-sizing: border-box;
 		width: 100%;
-		height: 90.5vh;
+		height: calc(100vh - 48px);
 		display: flex;
 		padding-top: 104rpx;
 		overflow: hidden;
@@ -94,7 +95,7 @@
 			width: 22%;
 
 			.left-tabbar-list {
-				height: 90.5vh;
+				height: 100%;
 				background: #eee;
 
 				.left-tabbar-item {
@@ -120,7 +121,7 @@
 			width: 78%;
 
 			.tab-panel {
-				height: 90.5vh;
+				height: 100%;
 				padding: 0 30rpx;
 				box-sizing: border-box;
 				font-size: 28rpx;
