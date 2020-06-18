@@ -22,7 +22,7 @@
 						<xhtab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name" activeColor="red" v-model="activeIndex"
 						 @click="tabChange"></xhtab>
 					</xhtabs>
-					<block v-for="(item,index) in tabData" :key="index" v-if="index === activeIndex">
+					<block v-for="(item,index) in favData" :key="index" v-if="index === activeIndex">
 						<scroll-view :scroll-y="scrollActive" @scrolltolower="getFavList" class="scroll-wrap">
 							<WaterFall :allData="item" :index="index" :col="2"></WaterFall>
 							<!--加载更多时动画-->
@@ -52,6 +52,10 @@
 	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from "@/components/common/bottomText";
 	import WaterFall from "@/components/waterFall/WaterFall.vue";
+	import {
+		mapState,
+	} from 'vuex';
+	
 
 	export default {
 		data() {
@@ -78,6 +82,9 @@
 			WaterFall,
 			BottomLoadMore,
 			BottomText,
+		},
+		computed:{
+			...mapState(['favData'])
 		},
 		created() {
 			if (store.state.userInfo.code) {
@@ -139,6 +146,7 @@
 							this.activeIndex,
 							this.tabData[this.activeIndex]
 						);
+						this.$store.commit("setAllFavData", this.tabData);
 						this.finished[this.activeIndex] = res.data.isEnd == 1 ? false : true;
 					}
 				});
@@ -147,7 +155,7 @@
 			tabChange(name) {
 				this.activeIndex = name;
 				if (this.tabData[this.activeIndex].length === 0) {
-					this.getFavList()
+					this.getFavList();
 				}
 			},
 			logout() {

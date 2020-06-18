@@ -23,7 +23,7 @@ export default new Vuex.Store({
   state: {
     userInfo: userInfo,
     token: token,
-    scroll: {},
+    favData: [],
   },
 
   actions: {
@@ -40,9 +40,17 @@ export default new Vuex.Store({
 			uni.setStorageSync('token', JSON.stringify(payload));
       Vue.set(state, 'token', payload);
     },
+		
+		setAllFavData(state, payload){
+			//缓存是为了方便调试
+			uni.setStorageSync('favData', JSON.stringify(payload));
+			this.state.favData = payload;
+			// Vue.set(state,'favData',payload);
+		},
+		
     setScroll(state, payload) {
       Vue.set(state.scroll, payload.key, payload.value);
-    }
+    },
   },
 
 
