@@ -43,7 +43,7 @@ export default new Vuex.Store({
 		// 设置收藏数据
 		setAllFavData(state, payload){
 			this.state.favData = payload;
-			console.log(this.state.favData);
+			console.log(this.state.favData,'store');
 			// Vue.set(state,'favData',payload);
 		},
 		// 修改菜谱数据
@@ -55,8 +55,8 @@ export default new Vuex.Store({
 					return item.code != payload.code;
 				})
 				// this.state.favData[0].pop();
-				Vue.set(state, 'favData', this.state.favData);
-				console.log(this.state.favData);
+				Vue.set(state.favData, '0', this.state.favData[0]);
+				console.log(this.state.favData,'store');
 			}
 		},
 		// 修改视频数据
