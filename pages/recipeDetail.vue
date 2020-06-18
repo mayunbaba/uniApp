@@ -345,6 +345,10 @@
 							tip.toast('收藏成功');
 						} else {
 							tip.toast('取消成功');
+							this.$store.commit('changeDishData',{
+								type:'del',
+								code: that.oCode.dishCode,
+							})
 						}
 					}
 				});
