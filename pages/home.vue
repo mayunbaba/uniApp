@@ -49,6 +49,7 @@
 			</view>
 			<HomeTab :scrollActive ="scrollActive"></HomeTab>
 		</view>
+		<custom-tab-bar></custom-tab-bar>
 	</view>
 </template>
 

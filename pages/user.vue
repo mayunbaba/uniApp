@@ -36,6 +36,7 @@
 			</view>
 
 		</view>
+		<custom-tab-bar></custom-tab-bar>
 	</view>
 </template>
 
@@ -174,7 +175,7 @@
 	.scroll-wrap {
 		width: 100%;
 		box-sizing: border-box;
-		height: calc(100vh - 89rpx);
+		height: calc(100vh - 89rpx - 48px);
 		background-color: #FFFFFF;
 		padding: 20rpx 40rpx;
 	}

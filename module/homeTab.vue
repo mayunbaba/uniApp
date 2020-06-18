@@ -76,7 +76,6 @@
 			},
 			// 请求推荐数据
 			getRecomData() {
-				return ;
 				return new Promise(resolve => {
 					if (this.loading[this.activeIndex]) return;
 					if (this.finished[this.activeIndex]) return;
@@ -132,7 +131,7 @@
 		.scroll-wrap {
 			width: 100%;
 			box-sizing: border-box;
-			height: calc(100vh - 195rpx);
+			height: calc(100vh - 195rpx - 48px);
 			background-color: #FFFFFF;
 			padding: 20rpx 40rpx;
 		}

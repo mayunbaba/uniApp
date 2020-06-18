@@ -1,15 +1,15 @@
 <template>
-	<view class="pox">
+	<view>
 		<!--miniprogram/custom-tab-bar/index.wxml-->
-		<cover-view class="tab-bar">
-			<cover-view class="tab-bar-border"></cover-view>
-			<cover-view v-for="(item,index) in list" :key="index" class="tab-bar-item" :data-path="item.pagePath" :data-index="index"
-			 @click="switchTab">
-				<cover-image :src="selected === index ? item.selectedIconPath : item.iconPath"></cover-image>
-				<cover-view :style="{color: selected === index ? selectedColor : color}">{{item.text}}</cover-view>
-			</cover-view>
-		</cover-view>
-
+		<view class="tab-bar">
+			<view class="tab-bar-border"></view>
+			<view v-for="(item,index) in list" :key="index" class="tab-bar-item" :data-path="item.pagePath" :data-index="index"
+			 @click="switchTab(item.pagePath)">
+				<image :src="path === item.pagePath ? item.selectedIconPath : item.iconPath"></image>
+				<view :style="{color: path === item.pagePath ? selectedColor : textColor}">{{item.text}}</view>
+			</view>
+		</view>
+		<view class="tab-bar-height"></view>
 	</view>
 </template>
 
@@ -18,20 +18,21 @@
 		name: "custom-tab-bar",
 		data() {
 			return {
-				selected: 0,
-				color: "#7A7E83",
-				selectedColor: "#3cc51f",
-				list: [{
+				"path": "pages/home",
+				"textColor": "#dddddd",
+				"selectedColor": "#000000",
+				"backgroundColor": "#ffffff",
+				"list": [{
 						"pagePath": "pages/home",
-						"text": "首1页",
-						"iconPath": "static/images/home-icon.png",
-						"selectedIconPath": "static/images/home-active-icon.png"
+						"text": "首页",
+						"iconPath": "/static/images/home-icon.png",
+						"selectedIconPath": "/static/images/home-active-icon.png"
 					},
 					{
 						"pagePath": "pages/classify",
 						"text": "分类",
-						"iconPath": "static/images/classify-icon.png",
-						"selectedIconPath": "static/images/classify-active-icon.png"
+						"iconPath": "/static/images/classify-icon.png",
+						"selectedIconPath": "/static/images/classify-active-icon.png"
 					},
 					{
 						"pagePath": "pages/user",
@@ -43,21 +44,29 @@
 			}
 		},
 		methods: {
-			switchTab(e) {
-				console.log(e);
-				// const data = e.currentTarget.dataset
-				// const url = data.path
-				// wx.switchTab({
-				// 	url
-				// })
-				// this.setData({
-				// 	selected: data.index
-				// })
+			switchTab(path) {
+				console.log(path);
+				uni.redirectTo({
+					url: '/'+path
+				});
 			}
+		},
+		created() {
+			//该函数获取所有栈内的路由
+			let pages = getCurrentPages();
+			//数组中最后一个即当前路由，options是参数
+			let {
+				route
+			} = pages.pop();
+			this.path = route;
 		}
 	}
 </script>
 <style>
+	.tab-bar-height{
+		width: 100%;
+		height: 48px;
+	}
 	.tab-bar {
 		position: fixed;
 		bottom: 0;
@@ -88,12 +97,12 @@
 		flex-direction: column;
 	}
 
-	.tab-bar-item cover-image {
+	.tab-bar-item image {
 		width: 27px;
 		height: 27px;
 	}
 
-	.tab-bar-item cover-view {
+	.tab-bar-item view {
 		font-size: 10px;
 	}
 </style>

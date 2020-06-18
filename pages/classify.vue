@@ -31,6 +31,7 @@
 				</block>
 			</scroll-view>
 		</view>
+		<custom-tab-bar></custom-tab-bar>
 	</view>
 
 </template>
