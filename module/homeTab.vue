@@ -76,6 +76,7 @@
 			},
 			// 请求推荐数据
 			getRecomData() {
+				return ;
 				return new Promise(resolve => {
 					if (this.loading[this.activeIndex]) return;
 					if (this.finished[this.activeIndex]) return;

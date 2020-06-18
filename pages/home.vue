@@ -48,7 +48,6 @@
 				</view>
 			</view>
 			<HomeTab :scrollActive ="scrollActive"></HomeTab>
-			<page-foot></page-foot>
 		</view>
 	</view>
 </template>
@@ -131,6 +130,9 @@
 			navTo(url) {
 				utils.xhNavigateTo(url);
 			},
+			onReachBottom(){
+				console.log('bottom');
+			}
 
 		}
 	}
