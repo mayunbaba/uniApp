@@ -130,8 +130,10 @@
 				.item-one {
 					float: left;
 					width: 30%;
-					line-height: 32rpx;
-					padding: 13rpx 0 14rpx;
+					line-height: 64rpx;
+					height: 64rpx;
+					white-space: nowrap;
+					// padding: 0rpx 0 14rpx;
 					box-sizing: border-box;
 					margin-bottom: 32rpx;
 					text-align: center;
