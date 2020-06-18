@@ -23,7 +23,7 @@
 					<view class="por" v-for="(item, index) in contentList.tags" :key="index">
 						<view class="por tag-name"><text class="bg-line center"></text><text class="item-name center">{{item.name}}</text></view>
 						<view>
-							<view class="item-one" @click="navTo('/pages/search?code=' + item.name)" v-for="(item, index) in item.data" :key="index">
+							<view class="item-one ellipsis" @click="navTo('/pages/search?code=' + item.name)" v-for="(item, index) in item.data" :key="index">
 								<text>{{item.name}}</text>
 							</view>
 						</view>
@@ -171,45 +171,11 @@
 		}
 	}
 
-	@-webkit-keyframes show {
-		0% {
-			opacity: 0;
-			transform: rotateY(180deg);
-		}
-
-		100% {
-			opacity: 1;
-			transform: rotateY(360deg);
-		}
-	}
-
-	@keyframes show {
-		0% {
-			opacity: 0;
-			transform: rotateY(180deg);
-		}
-
-		100% {
-			opacity: 1;
-			transform: rotateY(360deg);
-		}
-	}
-
-	.center {
-		text-align: center;
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		-webkit-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
-	}
-
-	.por {
-		position: relative;
+	.ellipsis {
+		display: block;
 		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
-	.pt40 {
-		padding-top: 40rpx;
-	}
 </style>

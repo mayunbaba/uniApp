@@ -80,9 +80,9 @@
 			BottomText,
 		},
 		created() {
-			this.getMenuNum();
 			if (store.state.userInfo.code) {
 				this.showNoLogin = false;
+				this.getMenuNum();
 			} else {
 				this.showNoLogin = true;
 			}

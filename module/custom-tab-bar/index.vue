@@ -66,6 +66,7 @@
 	.tab-bar-height{
 		width: 100%;
 		height: 48px;
+		background-color: #FFFFFF;
 	}
 	.tab-bar {
 		position: fixed;
