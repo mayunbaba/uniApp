@@ -36,12 +36,16 @@
 				time: 60,
 				publicKey: '',
 				sendTimer: '',
-				isLogin: false
+				isLogin: false,
+				path:'',
 			};
 		},
 
 		onUnload() {
 			clearInterval(this.sendTimer);
+		},
+		onLoad(options){
+			this.path = options.path
 		},
 		methods: {
 			goAgreement() {
@@ -157,17 +161,26 @@
 			},
 
 			back() {
-				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
-				let curRoute = routes[routes.length - 2].route // 获取当前页面路由，也就是最后一个打开的页面路由
-				if (curRoute.indexOf('user') > -1 || curRoute.indexOf('message') > -1) {
+				if(this.path){
 					uni.reLaunch({
-						url: '/' + curRoute
-					});
-				} else {
+						url:"/"+this.path
+					})
+				}else{
 					uni.navigateBack({
 						delta: 1
 					});
 				}
+				// let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+				// let curRoute = routes[routes.length - 2].route // 获取当前页面路由，也就是最后一个打开的页面路由
+				// if (curRoute.indexOf('user') > -1 || curRoute.indexOf('message') > -1) {
+				// 	uni.reLaunch({
+				// 		url: '/' + curRoute
+				// 	});
+				// } else {
+				// 	uni.navigateBack({
+				// 		delta: 1
+				// 	});
+				// }
 			},
 		},
 	};

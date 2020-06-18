@@ -45,10 +45,15 @@
 		},
 		methods: {
 			switchTab(path) {
-				console.log(path);
-				uni.redirectTo({
-					url: '/'+path
-				});
+				if(path == 'pages/user' && !this.$store.state.userInfo.code){
+					uni.navigateTo({
+						url:"/pages/login?path="+path
+					})
+				}else{
+					uni.redirectTo({
+						url: '/'+path
+					});
+				}
 			}
 		},
 		created() {
