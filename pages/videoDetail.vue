@@ -30,9 +30,9 @@
 				<view class="comment" v-if="model.comment.content">
 					<text class="name">{{model.comment.customer.nickName}}:</text>
 					<text class="contnet">{{model.comment.content}}</text>
-					<view class="go-comment" @click="goComment(model.code,model.commentNum)" v-if="model.commentNum > 1">
+					<!-- <view class="go-comment" @click="goComment(model.code,model.commentNum)" v-if="model.commentNum > 1">
 						查看{{model.commentNum}}条评论>>
-					</view>
+					</view> -->
 				</view>
 			</view>
 			<!-- 相关菜谱 -->
