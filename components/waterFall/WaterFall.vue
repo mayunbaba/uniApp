@@ -42,14 +42,40 @@
 		watch: {
 			allData: {
 				handler(newValue, oldValue) {
-					console.log(newValue, oldValue,'watch');
-					if(oldValue){
-						this.list = newValue.slice(oldValue.length);
-					}else{
-						// 旧值为空
-						this.list = newValue;
+					if(!oldValue || oldValue.length == 0){
+						// 旧的值为undefined
+						this.list = JSON.parse(JSON.stringify(newValue));
+						this.updateWaterfall();
+						return;
 					}
-					this.updateWaterfall();
+					// 遍历出新增数据 赋值给list
+					let common = [];  //新旧数据的交集
+					let delData = oldValue; //旧数据有而新数据没有的数据
+					newValue.forEach((item,index)=>{
+						let result = false;
+						result = oldValue.every(($item,index)=>{
+							return item.code !== $item.code;
+						});
+						if(result){
+							this.list.push(item);
+						}else{
+							common.push(item);
+							delData = delData.filter(($item)=>{
+								return $item.code !== item.code;
+							});
+						}
+					});
+					// 移除删除数据
+					delData.forEach((item,index)=>{
+						this.waterData.forEach((column,num)=>{
+							column.forEach((row,$num)=>{
+								if(row.code == item.code){
+									this.waterData[num].splice($num,1);
+								}
+							})
+						});
+					});
+					// this.updateWaterfall();
 				},
 				immediate: true
 
