@@ -80,8 +80,7 @@
 					if (this.loading[this.activeIndex]) return;
 					if (this.finished[this.activeIndex]) return;
 					this.loading[this.activeIndex] = true;
-					request(
-						"/baidu/v1/index/recom?" + this.nextUrls[this.activeIndex] || ""
+					request("/baidu/v1/index/recom?" + this.nextUrls[this.activeIndex] || ""
 					).then(res => {
 						var res = res.data;
 						this.tabData[this.activeIndex] = [

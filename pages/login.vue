@@ -68,7 +68,7 @@
 				if (this.tel.length == 11) {
 					if (this.code.length == 4) {
 
-						request('/baidu/v1/login/login?', {
+						request("/baidu/v1/login/login?", {
 							tel: this.tel,
 							verifyCode: this.code
 						}).then(res => {
@@ -120,7 +120,7 @@
 			},
 
 			sendVerifyCode(tel) {
-				request('/baidu/v1/login/sendVerifyCode?', {
+				request("/baidu/v1/login/sendVerifyCode?", {
 					tel: this.tel
 				}).then(res => {
 					if (res.code == 10000) {

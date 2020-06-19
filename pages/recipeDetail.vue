@@ -224,7 +224,7 @@
 				let params = {
 					dishCode: that.oCode.dishCode
 				};
-				request('/baidu/v1/Dish/topInfo', params).then(res => {
+				request("/baidu/v1/Dish/topInfo", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.model = res.data;
 						this.barText = res.data.name;
@@ -249,7 +249,7 @@
 			getMaterialList() {
 				let that = this;
 				let params = that.oCode;
-				request('/baidu/v1/Dish/getDishBurdenByCode', params).then(res => {
+				request("/baidu/v1/Dish/getDishBurdenByCode", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.materialListTotal = res.data;
 						if (res.data.length > 3) {
@@ -264,7 +264,7 @@
 			getWouldList() {
 				let that = this;
 				let params = that.oCode;
-				request('/baidu/v1/Dish/dishMake', params).then(res => {
+				request("/baidu/v1/Dish/dishMake", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.wouldListTotal = res.data.list;
 						if (that.wouldListTotal.length > 1) {
@@ -288,7 +288,7 @@
 			getRecipeList() {
 				let that = this;
 				let params = that.oCode;
-				request('/baidu/v1/dish/relevantDish', params).then(res => {
+				request("/baidu/v1/dish/relevantDish", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.recipeList = res.data.list;
 						that.nyfData = res.data.nyf;
@@ -338,7 +338,7 @@
 					type: 1,
 					typeName: that.model.name
 				};
-				request('/baidu/V1/Fav/setFav', params).then(res => {
+				request("/baidu/V1/Fav/setFav", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.model.isFavorites = res.data;
 						if (res.data == 2) {
