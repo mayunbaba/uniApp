@@ -65,7 +65,6 @@
 				activeIndex: 0,
 				tabList: [],
 				page: [],
-				tabData: [],
 				loading: [],
 				finished: [],
 				pos: {
@@ -105,17 +104,18 @@
 				request('/baidu/v1/user/center?').then(res => {
 					tip.loaded();
 					if (res.code == 10000 && res.data) {
+						let tabData = [];
 						this.userInfo = res.data;
 						this.favNum =
 							parseInt(res.data.favDishNum) + parseInt(res.data.favShortVideoNum);
 						this.tabList = res.data.myFav;
 						// 初始化数据
 						this.tabList.forEach((item, index) => {
-							this.tabData[index] = [];
+							tabData[index] = [];
 							this.page.push(0);
 							this.finished.push(false);
 						});
-						this.$store.commit('initFavData',this.tabData);
+						this.$store.commit('initFavData',tabData);
 						this.getFavList();
 						// 获取到数据后，获取页面tab距离顶部距离
 						this.$nextTick(() => {
@@ -149,7 +149,7 @@
 			// tab切换
 			tabChange(name) {
 				this.activeIndex = name;
-				if (this.tabData[this.activeIndex].length === 0) {
+				if (this.favData[this.activeIndex].length === 0) {
 					this.getFavList();
 				}
 			},
