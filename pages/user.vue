@@ -22,7 +22,7 @@
 						<xhtab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name" activeColor="red" v-model="activeIndex"
 						 @click="tabChange"></xhtab>
 					</xhtabs>
-					<block v-for="(item,index) in tabData" :key="index" v-if="index === activeIndex">
+					<block v-for="(item,index) in favData" :key="index" v-if="index === activeIndex">
 						<scroll-view :scroll-y="scrollActive" @scrolltolower="getFavList" class="scroll-wrap">
 							<WaterFall :allData="item" :index="index" :col="2"></WaterFall>
 							<!--加载更多时动画-->
@@ -52,7 +52,7 @@
 	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from "@/components/common/bottomText";
 	import WaterFall from "@/components/waterFall/WaterFall.vue";
-
+	import {mapState} from 'vuex';
 	
 
 	export default {
@@ -70,7 +70,7 @@
 				finished: [],
 				pos: {
 					"tabsT": 0
-				}
+				},
 			}
 		},
 		components: {
@@ -81,6 +81,9 @@
 			BottomLoadMore,
 			BottomText,
 		},
+		computed:{
+			...mapState(['favData'])
+		},
 		created() {
 			if (store.state.userInfo.code) {
 				this.showNoLogin = false;
@@ -89,6 +92,12 @@
 				this.showNoLogin = true;
 			}
 
+		},
+		onUnload(){
+			console.log('unload');
+		},
+		destroyed(){
+			console.log('destory');
 		},
 		methods: {
 			// 获取用户信息和收藏数量
@@ -106,6 +115,7 @@
 							this.page.push(0);
 							this.finished.push(false);
 						});
+						this.$store.commit('initFavData',this.tabData);
 						this.getFavList();
 						// 获取到数据后，获取页面tab距离顶部距离
 						this.$nextTick(() => {
@@ -126,23 +136,14 @@
 				if (this.finished[this.activeIndex]) return;
 				this.loading[this.activeIndex] = true;
 				this.page[this.activeIndex]++;
-				request('/baidu/v1/fav/favList?', {
+				this.$store.dispatch('setAllFavData',{
 					type: this.tabList[this.activeIndex].type,
-					page: this.page[this.activeIndex]
-				}).then(res => {
-					if (res.code == 10000 && res.data) {
-						this.loading[this.activeIndex] = false;
-						this.tabData[this.activeIndex] = [
-							...(this.tabData[this.activeIndex] || []),
-							...res.data.list
-						];
-						this.$set(
-							this.tabData,
-							this.activeIndex,
-							this.tabData[this.activeIndex]
-						);
-						this.finished[this.activeIndex] = res.data.isEnd == 1 ? false : true;
-					}
+					page: this.page[this.activeIndex],
+					index:this.activeIndex
+				}).then(res=>{
+					this.loading[this.activeIndex] = false;
+					this.finished[this.activeIndex] = res.data.isEnd == 1 ? false : true;
+					this.$set(this.finished,this.activeIndex,this.finished[this.activeIndex]);
 				});
 			},
 			// tab切换

@@ -1,73 +1,96 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {request} from '@/utils/request.js';
 
 Vue.use(Vuex)
 
 
 
 
-let token = {},userInfo={};
-try{
-    if(uni.getStorageSync('token')){
-			token = JSON.parse(uni.getStorageSync('token'));
-    }
-    if(uni.getStorageSync('userInfo')){
-			userInfo = JSON.parse(uni.getStorageSync('userInfo'));
-    }
-} catch (e){
-  console.log(e);
+let token = {},
+	userInfo = {};
+try {
+	if (uni.getStorageSync('token')) {
+		token = JSON.parse(uni.getStorageSync('token'));
+	}
+	if (uni.getStorageSync('userInfo')) {
+		userInfo = JSON.parse(uni.getStorageSync('userInfo'));
+	}
+} catch (e) {
+	console.log(e);
 }
 
 export default new Vuex.Store({
 
-  state: {
-    userInfo: userInfo,
-    token: token,
-    favData: [],
-  },
+	state: {
+		userInfo: userInfo,
+		token: token,
+		favData: [],
+	},
 
-  actions: {
-
-  },
-
-  mutations: {
-    setUserInfo(state, payload) {
-			uni.setStorageSync('userInfo', JSON.stringify(payload));
-      Vue.set(state, 'userInfo', payload);
-    },
-
-    setToken(state, payload) {
-			uni.setStorageSync('token', JSON.stringify(payload));
-      Vue.set(state, 'token', payload);
-    },
+	actions: {
 		// 设置收藏数据
-		setAllFavData(state, payload){
-			this.state.favData = payload;
-			console.log(this.state.favData,'store');
-			// Vue.set(state,'favData',payload);
+		setAllFavData(context, payload) {
+			return new Promise((resolve,reject)=>{
+				request('/baidu/v1/fav/favList?', {
+					type:payload.type,
+					page:payload.page
+				}).then(res => {
+					if (res.code == 10000 && res.data) {
+						context.state.favData[payload.index] = [
+							...(context.state.favData[payload.index] || []),
+							...res.data.list
+						];
+						Vue.set(
+							context.state.favData,
+							payload.index,
+							context.state.favData[payload.index]
+						);
+						resolve(res);
+					}
+				});
+			})
+			
 		},
+	},
+
+	mutations: {
+		setUserInfo(state, payload) {
+			uni.setStorageSync('userInfo', JSON.stringify(payload));
+			Vue.set(state, 'userInfo', payload);
+		},
+
+		setToken(state, payload) {
+			uni.setStorageSync('token', JSON.stringify(payload));
+			Vue.set(state, 'token', payload);
+		},
+		
+		initFavData(state, payload){
+			Vue.set(state, 'favData', payload);
+		},
+		
 		// 修改菜谱数据
-		changeDishData(state, payload){
-			if(payload.type == 'add'){
-				
-			}else{
-				this.state.favData[0] = this.state.favData[0].filter((item)=>{
+		changeDishData(state, payload) {
+			if (payload.type == 'add') {
+
+			} else {
+				this.state.favData[0] = this.state.favData[0].filter((item) => {
 					return item.code != payload.code;
 				})
 				// this.state.favData[0].pop();
 				Vue.set(state.favData, '0', this.state.favData[0]);
-				console.log(this.state.favData,'store');
+				console.log(this.state.favData, 'store');
 			}
 		},
 		// 修改视频数据
-		changeVideoData(state, payload){
-			
+		changeVideoData(state, payload) {
+
 		},
-		
-    setScroll(state, payload) {
-      Vue.set(state.scroll, payload.key, payload.value);
-    },
-  },
+
+		setScroll(state, payload) {
+			Vue.set(state.scroll, payload.key, payload.value);
+		},
+	},
 
 
 })

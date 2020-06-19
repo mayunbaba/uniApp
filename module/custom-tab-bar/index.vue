@@ -15,7 +15,7 @@
 
 <script>
 	export default {
-		name: "custom-tab-bar",
+		name: "customTabBar",
 		data() {
 			return {
 				"path": "pages/home",

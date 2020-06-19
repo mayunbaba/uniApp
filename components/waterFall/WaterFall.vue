@@ -38,12 +38,21 @@
 				imgWid: 160,
 			};
 		},
+		
 		watch: {
 			allData: {
 				handler(newValue, oldValue) {
-					this.list = newValue.slice(oldValue.length);
+					console.log(newValue, oldValue,'watch');
+					if(oldValue){
+						this.list = newValue.slice(oldValue.length);
+					}else{
+						// 旧值为空
+						this.list = newValue;
+					}
 					this.updateWaterfall();
-				}
+				},
+				immediate: true
+
 			}
 		},
 		methods: {
@@ -86,9 +95,9 @@
 			for (let i = 0; i < this.col; i++) {
 				this.waterData.push([]);
 			}
-			this.list = JSON.parse(JSON.stringify(this.allData));
+			// this.list = JSON.parse(JSON.stringify(this.allData));
 			this.$nextTick(() => {
-				this.updateWaterfall();
+				// this.updateWaterfall();
 				let query = uni.createSelectorQuery();
 				query
 					// #ifdef MP-WEIXIN
