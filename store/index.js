@@ -97,12 +97,30 @@ export default new Vuex.Store({
 		},
 		// 修改视频数据
 		changeVideoData(state, payload) {
-
+			if (payload.type == 'add') {
+				let {dish} = payload;
+				let data = {
+					"code": dish.code,
+					"type": 7,
+					"title": dish.name,
+					"favTime": "刚刚",
+					"image": {
+						"width": dish.video.width,
+						"height": dish.video.height,
+						"url": dish.video.img
+					},
+					"customer": dish.customer
+				};
+				this.state.favData[1].unshift(data);
+			} else {
+				this.state.favData[1] = this.state.favData[1].filter((item) => {
+					return item.code != payload.dish.code;
+				})
+				Vue.set(state.favData, '1', this.state.favData[1]);
+			}
 		},
 
-		setScroll(state, payload) {
-			Vue.set(state.scroll, payload.key, payload.value);
-		},
+
 	},
 
 

@@ -56,7 +56,7 @@
 <script>
 	import tip from '@/utils/tip';
 	import utils from '@/utils/util';
-	import store from '@/store/index.js';
+	// import store from '@/store/index.js';
 	import {
 		request
 	} from '@/utils/request';
@@ -83,7 +83,7 @@
 		},
 
 		onLoad(options) {
-			this.userInfo = store.state.userInfo;
+			this.userInfo = this.$store.state.userInfo;
 			this.oCode.dishCode = options.dishCode;
 			this.getModel();
 			this.getRecipeList();
@@ -129,10 +129,16 @@
 						that.model.isFav = res.data;
 						if (res.data == 2) {
 							tip.toast('收藏成功');
-							this.deleteFav = false;
+							this.$store.commit('changeVideoData',{
+								type:'add',
+								dish: that.model,
+							});
 						} else {
 							tip.toast('取消成功');
-							this.deleteFav = true;
+							this.$store.commit('changeVideoData',{
+								type:'del',
+								dish: that.model,
+							});
 						}
 					}
 				});
