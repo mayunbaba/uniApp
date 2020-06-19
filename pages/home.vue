@@ -95,7 +95,6 @@
 					// #endif
 					.select('.tabs-wrap')
 					.boundingClientRect(rect => {
-						console.log(rect);
 						if(rect){
 							this.pos.tabsT = rect.top;
 						}
@@ -105,7 +104,6 @@
 					// #endif
 					.select('.go-search')
 					.boundingClientRect(rect => {
-						console.log(rect);
 						if(rect){
 							this.pos.searchH = rect.height;
 						}

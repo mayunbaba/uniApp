@@ -105,7 +105,6 @@
 					// #endif
 					.select('.water-fall')
 					.boundingClientRect(res => {
-						console.log(res);
 						if (res) {
 							this.imgWid = (res.width - 15) / this.col;
 						}
