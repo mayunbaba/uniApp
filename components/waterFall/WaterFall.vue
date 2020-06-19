@@ -75,7 +75,7 @@
 							})
 						});
 					});
-					// this.updateWaterfall();
+					this.updateWaterfall();
 				},
 				immediate: true
 
