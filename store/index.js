@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {request} from '@/utils/request.js';
+import {
+	request
+} from '@/utils/request.js';
 
 Vue.use(Vuex)
 
@@ -31,10 +33,10 @@ export default new Vuex.Store({
 	actions: {
 		// 设置收藏数据
 		setAllFavData(context, payload) {
-			return new Promise((resolve,reject)=>{
+			return new Promise((resolve, reject) => {
 				request('/baidu/v1/fav/favList?', {
-					type:payload.type,
-					page:payload.page
+					type: payload.type,
+					page: payload.page
 				}).then(res => {
 					if (res.code == 10000 && res.data) {
 						context.state.favData[payload.index] = [
@@ -50,7 +52,7 @@ export default new Vuex.Store({
 					}
 				});
 			})
-			
+
 		},
 	},
 
@@ -64,22 +66,33 @@ export default new Vuex.Store({
 			uni.setStorageSync('token', JSON.stringify(payload));
 			Vue.set(state, 'token', payload);
 		},
-		
-		initFavData(state, payload){
+
+		initFavData(state, payload) {
 			Vue.set(state, 'favData', payload);
 		},
-		
+
 		// 修改菜谱数据
 		changeDishData(state, payload) {
 			if (payload.type == 'add') {
-
+				let {dish} = payload;
+				let data = {
+					"code": dish.code,
+					"type": dish.type,
+					"title": dish.name,
+					"favTime": "刚刚",
+					"image": {
+						"width": 500,
+						"height": 500,
+						"url": dish.img
+					},
+					"customer": dish.customer
+				};
+				this.state.favData[0].unshift(data);
 			} else {
 				this.state.favData[0] = this.state.favData[0].filter((item) => {
-					return item.code != payload.code;
+					return item.code != payload.dish.code;
 				})
-				// this.state.favData[0].pop();
 				Vue.set(state.favData, '0', this.state.favData[0]);
-				console.log(this.state.favData, 'store');
 			}
 		},
 		// 修改视频数据

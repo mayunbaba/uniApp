@@ -54,14 +54,14 @@
 					newValue.forEach((item,index)=>{
 						let result = false;
 						result = oldValue.every(($item,index)=>{
-							return item.code !== $item.code;
+							return item.code != $item.code;
 						});
 						if(result){
 							this.list.push(item);
 						}else{
 							common.push(item);
 							delData = delData.filter(($item)=>{
-								return $item.code !== item.code;
+								return $item.code != item.code;
 							});
 						}
 					});
