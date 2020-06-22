@@ -1,6 +1,6 @@
 <template>
 
-	<view class="go-search swan-web-fixed">
+	<view class="go-search">
 		<navigator url="/pages/search" hover-class="none">
 			<view class="search-con ellipsis">
 				<image class="img" src="@/static/images/search-pic.png"></image>
