@@ -56,19 +56,14 @@
 						url: "/pages/login?path=" + path
 					})
 				} else {
-					if(path == 'pages/message'){
-						uni.reLaunch({
-							url: '/' + path
-						})
-					}else{
-						uni.switchTab({
-							url: '/' + path
-						})
-					}
+					uni.switchTab({
+						url: '/' + path
+					})
 				}
 			}
 		},
 		created() {
+			uni.hideTabBar();
 			//该函数获取所有栈内的路由
 			let pages = getCurrentPages();
 			//数组中最后一个即当前路由，options是参数

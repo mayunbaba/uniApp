@@ -52,9 +52,9 @@ export default {
   methods: {
     goLogin() {
       if (this.buttonUrl.indexOf('home') > -1) {
-        uni.switchTab({
-          url: this.buttonUrl
-        });
+				uni.switchTab({
+					url: this.buttonUrl
+				})
       } else {
         utils.xhNavigateTo(this.buttonUrl);
       }

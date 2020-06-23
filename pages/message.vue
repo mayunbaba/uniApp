@@ -75,7 +75,7 @@
 			};
 		},
 
-		onLoad(options) {
+		onLoad() {
 			this.getUserInfo();
 			if(this.islogin){
 				this.getMsgList();
