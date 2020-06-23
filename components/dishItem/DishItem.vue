@@ -2,7 +2,9 @@
 	<div class="video-wrap" @click="goDetail(item.type,item.code)" :style="{width:imgWid+'px'}">
 		<view :style="{width:imgWid+'px',height:imgWid*item.image.height/item.image.width+'px',backgroundImage:'url('+item.image.url+')'}"
 		 class="cover">
-			<image src="/static/images/bf.png" mode="aspectFit" class="icon" v-if="item.type == 7 || item.type == 2"></image>
+		 <!-- #ifndef MP-ALIPAY -->
+		 <image src="/static/images/bf.png" mode="aspectFit" class="icon" v-if="item.type == 7 || item.type == 2"></image>
+		 <!-- #endif -->
 		</view>
 		<view class="bottom">
 			<view class="title">{{item.title}}</view>

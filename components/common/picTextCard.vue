@@ -1,12 +1,16 @@
 <template>
 	<view @click="nav" class="item-one clearfix">
 		<view class="con-l type_green" :style="'background:url(' + item.img + ');background-size:100%;border-radius:6rpx;'">
+			<!-- #ifndef MP-ALIPAY -->
 			<view class="bf-btn ps-right-bottom" v-if="item.time">
 				<view class="bf-time-con">
 					<image src="/static/images/play-arrow.png"></image>
 					{{item.time}}
 				</view>
 			</view>
+			<!-- #endif -->
+			
+			
 		</view>
 		<view class="con-r">
 			<text class="title">{{item.name}}</text>

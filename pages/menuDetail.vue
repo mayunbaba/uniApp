@@ -88,39 +88,6 @@
 					}
 				});
 			},
-
-			// 收藏
-			setLike() {
-				let that = this;
-				if (!that.userInfo.code) {
-					tip.openConfirm({
-						title: "温馨提示",
-						con: "请先前往[我的]页面登录",
-						okCbFn: () => {
-							uni.switchTab({
-								url: "/pages/user"
-							});
-						}
-					});
-					return;
-				}
-				let params = {
-					code: that.code,
-					type: 2
-				};
-				request("/v1/Favorites/editFavorites", params).then(res => {
-					if (res.code == 10000 && res.data) {
-						that.model.isFavorites = res.data.status;
-						if (res.data.status == 2) {
-							tip.toast("收藏成功");
-						} else {
-							tip.toast("取消成功");
-						}
-					} else {
-						tip.alert(res.msg);
-					}
-				});
-			},
 		},
 	};
 </script>

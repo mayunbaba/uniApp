@@ -4,7 +4,9 @@
 			<view class="info">
 				<view class="info-img-wrap">
 					<image :src="item.img" class="info-img"></image>
+					<!-- #ifndef MP-ALIPAY -->
 					<image v-if="item.isVideo == 2" src="/static/images/bf-btn.png" class="bf-btn ps-center"></image>
+					<!-- #endif -->
 				</view>
 
 				<text class="title ellipsis">{{item.title}}</text>

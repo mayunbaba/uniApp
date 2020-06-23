@@ -2,12 +2,14 @@
 	<view @click="nav" class="clearfix flex item-con-btn">
 		<view class="con-l type_green">
 			<image class="con-l type_green" :src="item.img"></image>
+			<!-- #ifndef MP-ALIPAY -->
 			<view v-if="item.isVideo==2" class="bf-btn ps-right-bottom">
 				<view class="bf-time-con">
 					<image src="/static/images/play-arrow.png"></image>
 					{{item.videoTime}}
 				</view>
 			</view>
+			<!-- #endif -->
 		</view>
 
 		<view class="con-r">
