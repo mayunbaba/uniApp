@@ -22,6 +22,15 @@
 				</view>
 				<view v-for="(item, index) in list" :key="index">
 					<view v-if="item.isDish == 2">
+						<view class="ad-wrap" v-if="index == 0 && showAd">
+							<xhAdBox :adPos = '"recommend1"' :show="showAd"></xhAdBox>
+						</view>
+						<view class="ad-wrap" v-if="index == 3 && showAd">
+							<xhAdBox :adPos = '"recommend2"' :show="showAd"></xhAdBox>
+						</view>
+						<view class="ad-wrap" v-if="index == 7 && showAd">
+							<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
+						</view>
 						<searchItem :item="item" @click="navTo('/pages/recipeDetail?dishCode=' + item.code)"></searchItem>
 					</view>
 				</view>
@@ -60,6 +69,7 @@
 	import BottomLoadMore from '@/components/common/bottomLoadMore';
 	import BottomText from '@/components/common/bottomText';
 	import searchItem from '@/components/common/searchItem.vue';
+	import xhAdBox from '@/components/common/xhAdBox.vue';
 
 	export default {
 		data() {
@@ -80,13 +90,15 @@
 				showBottomText: false,
 				//是否展示text
 				isFisrt: true,
-				isFocus: false // 是否在输入状态
+				isFocus: false, // 是否在输入状态
+				showAd:true,
 			};
 		},
 		components: {
 			BottomLoadMore,
 			BottomText,
-			searchItem
+			searchItem,
+			xhAdBox
 		},
 
 		onLoad(options) {
@@ -432,5 +444,8 @@
 			rgba(255, 255, 255, 1) 10%,
 			rgba(255, 255, 255, 1) 100%,
 			);
+	}
+	.ad-wrap{
+		margin: 36rpx 40rpx;
 	}
 </style>

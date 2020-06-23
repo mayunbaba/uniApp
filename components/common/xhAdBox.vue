@@ -3,7 +3,9 @@
 
 		<view v-if="adList[adPos].apid">
 			<!-- #ifdef MP-BAIDU -->
-			<ad :appid="adList[adPos].appid" :apid="adList[adPos].apid" :type="adList[adPos].type" class="ad"></ad>
+			<ad :appid="adList[adPos].appid" :apid="adList[adPos].apid" :type="adList[adPos].type" 
+			:class="adList[adPos].type"
+			 ></ad>
 			<!-- #endif -->
 			
 		</view>
@@ -36,4 +38,9 @@
 		},
 	};
 </script>
+<style>
+	.feed{
+		margin: -30rpx;
+	}
+</style>
 
