@@ -60,29 +60,29 @@
 		"navigationBarTextStyle": "white",
 		"backgroundTextStyle": "light",
 		"enablePullDownRefresh": false
+	},
+	"tabBar": {
+		"textColor": "#dddddd",
+		"selectedColor": "#000000",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/home",
+				"text": "首页",
+				"iconPath": "static/images/home-icon.png",
+				"selectedIconPath": "static/images/home-active-icon.png"
+			},
+			{
+				"pagePath": "pages/classify",
+				"text": "分类",
+				"iconPath": "static/images/classify-icon.png",
+				"selectedIconPath": "static/images/classify-active-icon.png"
+			},
+			{
+				"pagePath": "pages/user",
+				"text": "我的",
+				"iconPath": "/static/images/user-icon.png",
+				"selectedIconPath": "/static/images/user-active-icon.png"
+			}
+		]
 	}
-	// "tabBar": {
-	// 	"textColor": "#dddddd",
-	// 	"selectedColor": "#000000",
-	// 	"backgroundColor": "#ffffff",
-	// 	"list": [{
-	// 			"pagePath": "pages/home",
-	// 			"text": "首页",
-	// 			"iconPath": "static/images/home-icon.png",
-	// 			"selectedIconPath": "static/images/home-active-icon.png"
-	// 		},
-	// 		{
-	// 			"pagePath": "pages/classify",
-	// 			"text": "分类",
-	// 			"iconPath": "static/images/classify-icon.png",
-	// 			"selectedIconPath": "static/images/classify-active-icon.png"
-	// 		},
-	// 		{
-	// 			"pagePath": "pages/user",
-	// 			"text": "我的",
-	// 			"iconPath": "/static/images/user-icon.png",
-	// 			"selectedIconPath": "/static/images/user-active-icon.png"
-	// 		}
-	// 	]
-	// }
 }
