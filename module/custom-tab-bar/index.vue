@@ -45,14 +45,14 @@
 		},
 		methods: {
 			switchTab(path) {
-				if(path == 'pages/user' && !this.$store.state.userInfo.code){
+				if (path == 'pages/user' && !this.$store.state.userInfo.code) {
 					uni.navigateTo({
-						url:"/pages/login?path="+path
+						url: "/pages/login?path=" + path
 					})
-				}else{
-					uni.redirectTo({
-						url: '/'+path
-					});
+				} else {
+					uni.switchTab({
+						url: '/' + path
+					})
 				}
 			}
 		},
@@ -68,11 +68,12 @@
 	}
 </script>
 <style>
-	.tab-bar-height{
+	.tab-bar-height {
 		width: 100%;
 		height: 48px;
 		background-color: #FFFFFF;
 	}
+
 	.tab-bar {
 		position: fixed;
 		bottom: 0;

@@ -33,7 +33,7 @@
 				<view class="shicai-box" v-if="modelList.cate.text1">
 					<view class="top">
 						<text class="title">{{modelList.cate.text1}}</text>
-						<navigator class="more" url="/pages/classify" hover-class="none" open-type="redirect">查看全部</navigator>
+						<navigator class="more" url="/pages/classify" hover-class="none" open-type="switchTab">查看全部</navigator>
 					</view>
 					<view class="con clearfix">
 						<view class="con-item" v-for="(item,index) in modelList.cate.list" :key="index">
