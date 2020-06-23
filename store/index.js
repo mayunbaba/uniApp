@@ -28,6 +28,7 @@ export default new Vuex.Store({
 		userInfo: userInfo,
 		token: token,
 		favData: [],
+		adList: {},
 	},
 
 	actions: {
@@ -52,8 +53,16 @@ export default new Vuex.Store({
 					}
 				});
 			})
-
 		},
+		// 获取广告数据
+		setAdList(context, payload) {
+			request('/v1/ad/config').then(res => {
+				if (res.code == 10000) {
+					context.state.adList = res.data;
+					uni.setStorageSync('adList', res.data);
+				}
+			});
+		}
 	},
 
 	mutations: {
@@ -74,7 +83,9 @@ export default new Vuex.Store({
 		// 修改菜谱数据
 		changeDishData(state, payload) {
 			if (payload.type == 'add') {
-				let {dish} = payload;
+				let {
+					dish
+				} = payload;
 				let data = {
 					"code": dish.code,
 					"type": dish.type,
@@ -98,7 +109,9 @@ export default new Vuex.Store({
 		// 修改视频数据
 		changeVideoData(state, payload) {
 			if (payload.type == 'add') {
-				let {dish} = payload;
+				let {
+					dish
+				} = payload;
 				let data = {
 					"code": dish.code,
 					"type": 7,

@@ -1,7 +1,11 @@
 <script>
+	
 	export default {
 		onLaunch: function() {
 			console.log('APP onLaunch');
+			// #ifdef MP-BAIDU || MP-WEIXIN
+			this.$store.dispatch('setAdList');
+			// #endif
 		},
 		onShow: function() {
 			console.log('App Show');

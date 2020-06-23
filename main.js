@@ -12,7 +12,7 @@ App.mpType = 'app'
 
 new Vue({
 	store,
-  render: h => h(App)
+	...App
 }).$mount('#app')
 
 

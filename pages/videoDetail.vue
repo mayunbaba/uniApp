@@ -41,6 +41,15 @@
 					<view class="title">热门推荐</view>
 				</view>
 				<block v-for="(item,index) in recipeList" :key="index">
+					<view class="ad-wrap" v-if="index == 0 && showAd">
+						<xhAdBox :adPos = '"recommend1"' :show="showAd"></xhAdBox>
+					</view>
+					<view class="ad-wrap" v-if="index == 5 && showAd">
+						<xhAdBox :adPos = '"recommend2"' :show="showAd"></xhAdBox>
+					</view>
+					<view class="ad-wrap" v-if="index == 11 && showAd">
+						<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
+					</view>
 					<picTextCard :item="item" @click="navTo('/pages/videoDetail?dishCode=' + item.code,'redirect')" />
 				</block>
 				<bottomLoadMore :show="!showBottomText"></bottomLoadMore>
@@ -56,13 +65,14 @@
 <script>
 	import tip from '@/utils/tip';
 	import utils from '@/utils/util';
-	// import store from '@/store/index.js';
+	
 	import {
 		request
 	} from '@/utils/request';
 	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from '@/components/common/bottomText';
 	import picTextCard from '@/components/common/picTextCard.vue';
+	import xhAdBox from '@/components/common/xhAdBox.vue';
 
 	export default {
 		data() {
@@ -74,13 +84,17 @@
 				recipeList: [],
 				page: 1,
 				videoContext: null,
+				showAd:true,
 			}
 		},
 		components: {
 			BottomText,
 			BottomLoadMore,
-			picTextCard
+			picTextCard,
+			xhAdBox
 		},
+		
+		
 
 		onLoad(options) {
 			this.userInfo = this.$store.state.userInfo;
@@ -353,5 +367,7 @@
 			}
 		}
 	}
-
+	.ad-wrap{
+		margin: 36rpx 40rpx;
+	}
 </style>

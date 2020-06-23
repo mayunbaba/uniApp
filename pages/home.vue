@@ -129,9 +129,6 @@
 			navTo(url) {
 				utils.xhNavigateTo(url);
 			},
-			onReachBottom(){
-				console.log('bottom');
-			}
 
 		}
 	}
