@@ -1,6 +1,7 @@
 node_modules
 unpackage
 utils/
+manifest.json
 
 
 # local env files

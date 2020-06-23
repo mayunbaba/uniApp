@@ -38,11 +38,9 @@
 			</view>
 		</view>
 		<view v-else class="text-wrap">
-			<input :placeholder="placeholderMsg" :focus="keyBoard" adjust-position="true" @input="bindinput" class="text" maxlength="150"
-			 @confirm="sendComment" confirm-type="send"></input>
-			 <!-- <input placeholder="{{placeholderMsg}}" focus="{{keyBoard}}" adjust-position="true"  bindinput="bindinput" class="text"  maxlength="150" bindconfirm="sendComment" confirm-type="send"></input> -->
+			<input :placeholder="placeholderMsg" :focus="keyBoard" adjust-position="true" @input="bindinput" class="text"
+			 maxlength="150" @confirm="sendComment" confirm-type="send"></input>
 			<view class="send-wrap" @touchstart="sendComment">
-				<!-- <view :class="'send ' + (sendActive ? 'red-bg' : '') + ' ' + (isAndroid ? 'android-send' : '')">发送</view> -->
 				<view :class='{"send":true,"red-bg":sendActive,"android-send":isAndroid}'>发送</view>
 			</view>
 		</view>
