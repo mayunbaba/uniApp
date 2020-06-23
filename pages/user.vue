@@ -18,10 +18,12 @@
 			<view class="fav" v-else>
 				<view class="fav-title">我的收藏</view>
 				<view class="feed" id="nav">
+					<!-- #ifndef MP-ALIPAY -->
 					<xhtabs>
 						<xhtab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name" activeColor="red" v-model="activeIndex"
 						 @click="tabChange"></xhtab>
 					</xhtabs>
+					<!-- #endif -->
 					<block v-for="(item,index) in favData" :key="index" v-if="index === activeIndex">
 						<scroll-view :scroll-y="scrollActive" @scrolltolower="getFavList" class="scroll-wrap">
 							<WaterFall :allData="item" :index="index" :col="2"></WaterFall>
@@ -179,6 +181,9 @@
 		width: 100%;
 		box-sizing: border-box;
 		height: calc(100vh - 89rpx - 48px);
+		// #ifdef MP-ALIPAY
+		height: calc(100vh - 89rpx);
+		// #endif
 		background-color: #FFFFFF;
 		padding: 20rpx 40rpx;
 	}
