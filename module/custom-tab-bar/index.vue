@@ -35,6 +35,12 @@
 						"selectedIconPath": "/static/images/classify-active-icon.png"
 					},
 					{
+						"pagePath": "pages/message",
+						"text": "消息",
+						"iconPath": "/static/images/comment.png",
+						"selectedIconPath": "/static/images/comment-active.png"
+					},
+					{
 						"pagePath": "pages/user",
 						"text": "我的",
 						"iconPath": "/static/images/user-icon.png",
@@ -45,14 +51,20 @@
 		},
 		methods: {
 			switchTab(path) {
-				if (path == 'pages/user' && !this.$store.state.userInfo.code) {
+				if ((path == 'pages/user' || path == 'pages/message') && !this.$store.state.userInfo.code) {
 					uni.navigateTo({
 						url: "/pages/login?path=" + path
 					})
 				} else {
-					uni.switchTab({
-						url: '/' + path
-					})
+					if(path == 'pages/message'){
+						uni.reLaunch({
+							url: '/' + path
+						})
+					}else{
+						uni.switchTab({
+							url: '/' + path
+						})
+					}
 				}
 			}
 		},

@@ -68,7 +68,8 @@
         "usingComponents" : true
     },
     "mp-baidu" : {
-        "usingComponents" : true
+        "usingComponents" : true,
+        "appid" : "15398224"
     },
     "mp-toutiao" : {
         "usingComponents" : true
