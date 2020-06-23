@@ -144,6 +144,7 @@
 					<image :src="nyfData.img" @click="navTo('/pages/h5?path=' + nyfData.url,'')" class="nyf-banner" mode="aspectFit"
 					 v-if="nyfData.img"></image>
 					<block v-for="(item,index) in recipeList" :key="item">
+						<!-- #ifdef MP-BAIDU -->
 						<view class="ad-wrap" v-if="index == 0 && showAd">
 							<xhAdBox :adPos = '"recommend1"' :show="showAd"></xhAdBox>
 						</view>
@@ -153,6 +154,7 @@
 						<view class="ad-wrap" v-if="index == 7 && showAd">
 							<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
 						</view>
+						<!-- #endif -->
 						<searchItem :item="item" @click="navTo('/pages/recipeDetail?dishCode=' + item.code,openType)"></searchItem>
 					</block>
 					<bottomText :show.sync="showBottomText"></bottomText>

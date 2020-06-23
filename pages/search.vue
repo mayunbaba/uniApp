@@ -22,6 +22,7 @@
 				</view>
 				<view v-for="(item, index) in list" :key="index">
 					<view v-if="item.isDish == 2">
+						<!-- #ifdef MP-BAIDU -->
 						<view class="ad-wrap" v-if="index == 0 && showAd">
 							<xhAdBox :adPos = '"recommend1"' :show="showAd"></xhAdBox>
 						</view>
@@ -31,6 +32,8 @@
 						<view class="ad-wrap" v-if="index == 7 && showAd">
 							<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
 						</view>
+						<!-- #endif -->
+						
 						<searchItem :item="item" @click="navTo('/pages/recipeDetail?dishCode=' + item.code)"></searchItem>
 					</view>
 				</view>

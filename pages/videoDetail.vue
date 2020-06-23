@@ -41,6 +41,7 @@
 					<view class="title">热门推荐</view>
 				</view>
 				<block v-for="(item,index) in recipeList" :key="index">
+					<!-- #ifdef MP-BAIDU -->
 					<view class="ad-wrap" v-if="index == 0 && showAd">
 						<xhAdBox :adPos = '"recommend1"' :show="showAd"></xhAdBox>
 					</view>
@@ -50,6 +51,7 @@
 					<view class="ad-wrap" v-if="index == 11 && showAd">
 						<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
 					</view>
+					<!-- #endif -->
 					<picTextCard :item="item" @click="navTo('/pages/videoDetail?dishCode=' + item.code,'redirect')" />
 				</block>
 				<bottomLoadMore :show="!showBottomText"></bottomLoadMore>
