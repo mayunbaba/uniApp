@@ -3,9 +3,14 @@
 	<view class="recipe-detail-page">
 		<form @submit="submit" report-submit="false">
 			<view class="con">
+				<!-- #ifndef MP-ALIPAY -->
 				<video v-if="model.isVideo == 2" class="video-box" :src="model.video.url" :poster="model.img" controls @error="onPlayError">
 				</video>
 				<image v-else class="video-box img-box" :src="model.img"></image>
+				<!-- #endif -->
+				<!-- #ifdef MP-ALIPAY -->
+				<image class="video-box img-box" :src="model.img"></image>
+				<!-- #endif -->
 				<view class="kc-info">
 					<text class="kc-title">{{model.name}}</text>
 					<view class="rank-wrap">
