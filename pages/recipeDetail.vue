@@ -72,6 +72,7 @@
 						</view>
 					</view>
 				</view>
+				<xhAdBox :showAdBox="showAd" :adPos="'dishIngreBottom'" class="ad-100-wrap"></xhAdBox>
 				<!-- 小技巧 -->
 				<view class="xjq-box" v-if="skillList.isShow == 2">
 					<view class="xjq-title">{{skillList.title}}</view>
@@ -133,7 +134,7 @@
 						<image :src="model.banner.img" @click="navTo(model.banner.url)"></image>
 					</view>
 				</view>
-
+				<xhAdBox :showAdBox="showAd" :adPos="'dishTipsBottom'" class="ad-wrap"></xhAdBox>
 				<!-- 相关菜谱 -->
 				<view class="recomm-box" v-if="recipeList.length">
 					<view class="recomm-title-box clearfix">
@@ -142,7 +143,16 @@
 					</view>
 					<image :src="nyfData.img" @click="navTo('/pages/h5?path=' + nyfData.url,'')" class="nyf-banner" mode="aspectFit"
 					 v-if="nyfData.img"></image>
-					<block v-for="item in recipeList" :key="item">
+					<block v-for="(item,index) in recipeList" :key="item">
+						<view class="ad-wrap" v-if="index == 0 && showAd">
+							<xhAdBox :adPos = '"recommend1"' :show="showAd"></xhAdBox>
+						</view>
+						<view class="ad-wrap" v-if="index == 3 && showAd">
+							<xhAdBox :adPos = '"recommend2"' :show="showAd"></xhAdBox>
+						</view>
+						<view class="ad-wrap" v-if="index == 7 && showAd">
+							<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
+						</view>
 						<searchItem :item="item" @click="navTo('/pages/recipeDetail?dishCode=' + item.code,openType)"></searchItem>
 					</block>
 					<bottomText :show.sync="showBottomText"></bottomText>
@@ -165,6 +175,7 @@
 	import BottomText from "@/components/common/bottomText";
 	import searchItem from '@/components/common/searchItem.vue';
 	import BottomBar from '@/components/common/bottomBar.vue';
+	import xhAdBox from '@/components/common/xhAdBox.vue';
 
 	export default {
 		data() {
@@ -200,7 +211,8 @@
 				showBottomText: true,
 				// 显示底部语
 				makeUrl: [],
-				pageInfo: null
+				pageInfo: null,
+				showAd:true
 			};
 		},
 
@@ -221,7 +233,8 @@
 			BottomLoadMore,
 			BottomText,
 			searchItem,
-			BottomBar
+			BottomBar,
+			xhAdBox
 		},
 		methods: {
 			getModel() {
@@ -1019,14 +1032,14 @@
 		}
 	}
 
-	.ad-wrap {
-		padding: 20rpx 10rpx 0;
+	// .ad-wrap {
+	// 	padding: 20rpx 10rpx 0;
 
-		.line {
-			margin: 0 30rpx 20rpx;
-			border-top: 2rpx solid #ececec;
-		}
-	}
+	// 	.line {
+	// 		margin: 0 30rpx 20rpx;
+	// 		border-top: 2rpx solid #ececec;
+	// 	}
+	// }
 
 	.youliao-ad {
 		margin-top: 20rpx;
@@ -1187,5 +1200,8 @@
 				color: #333333;
 			}
 		}
+	}
+	.ad-wrap{
+		margin: 36rpx 40rpx;
 	}
 </style>
