@@ -120,7 +120,7 @@
 		},
 		methods: {
 			initData() {
-				request("/baidu/v1/index/recommend").then(res => {
+				request("/v1/index/recommend").then(res => {
 					this.modelList = res.data;
 				})
 

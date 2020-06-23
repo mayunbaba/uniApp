@@ -71,7 +71,7 @@
 		methods: {
 			getTabList() {
 				let that = this;
-				request("/baidu/v1/Index/getVideoTab").then(res => {
+				request("/v1/Index/getVideoTab").then(res => {
 					if (res.code == 10000) {
 						that.tabList = res.data;
 						that.twoType = res.data[0].twoType;
@@ -88,7 +88,7 @@
 					twoType: that.twoType,
 					page: that.page
 				};
-				request("/baidu/v1/Index/video", params).then(res => {
+				request("/v1/Index/video", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.page++;
 						that.conList = [...that.conList, ...res.data];

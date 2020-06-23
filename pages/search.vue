@@ -114,7 +114,7 @@
 		methods: {
 			getModel() {
 				var that = this;
-				request("/baidu/v1/search/hotWords").then(res => {
+				request("/v1/search/hotWords").then(res => {
 					if (res.code == 10000) {
 						this.hotword = res.data;
 					}
@@ -134,7 +134,7 @@
 					keywords: that.keywords,
 					page: that.page
 				};
-				request("/baidu/v1/search/soCaipu", params).then(res => {
+				request("/v1/search/soCaipu", params).then(res => {
 					if (res.code == 10000 && res.data && res.data[0]) {
 						that.noSearchResult = false;
 						that.list = [...that.list, ...res.data];

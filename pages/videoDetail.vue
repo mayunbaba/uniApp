@@ -93,7 +93,7 @@
 		methods: {
 			getModel() {
 				tip.loading();
-				request("/baidu/v1/index/videoInfo?code=" + this.oCode.dishCode).then(res => {
+				request("/v1/index/videoInfo?code=" + this.oCode.dishCode).then(res => {
 					if (res.code == 10000 && res.data) {
 						this.model = res.data;
 						tip.loaded();
@@ -102,7 +102,7 @@
 			},
 			// 请求相关推荐数据
 			getRecipeList() {
-				request("/baidu/v1/index/hotRecom?code=" + this.oCode.dishCode + '&page=' + this.page).then(res => {
+				request("/v1/index/hotRecom?code=" + this.oCode.dishCode + '&page=' + this.page).then(res => {
 					if (res.code == 10000 && res.data) {
 						this.recipeList = [...this.recipeList, ...res.data.list];
 						if (res.data.isEnd == 2) {
@@ -124,7 +124,7 @@
 					type: 7,
 					typeName: this.model.name
 				};
-				request("/baidu/v1/fav/setFav?", params).then(res => {
+				request("/v1/fav/setFav?", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.model.isFav = res.data;
 						if (res.data == 2) {

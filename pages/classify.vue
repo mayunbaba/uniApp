@@ -62,7 +62,7 @@
 		methods: {
 			getList() {
 				let that = this;
-				request("/baidu/v1/Index/getFenleiData").then(res => {
+				request("/v1/Index/getFenleiData").then(res => {
 					if (res.code == 10000) {
 						that.list = res.data;
 						that.contentList = that.list[0];

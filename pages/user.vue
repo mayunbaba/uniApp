@@ -101,7 +101,7 @@
 		methods: {
 			// 获取用户信息和收藏数量
 			getMenuNum(arg) {
-				request("/baidu/v1/user/center?").then(res => {
+				request("/v1/user/center?").then(res => {
 					tip.loaded();
 					if (res.code == 10000 && res.data) {
 						let tabData = [];

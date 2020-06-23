@@ -55,7 +55,7 @@
 		methods: {
 			// tab基础数据及第一屏数据
 			getTabData() {
-				request("/baidu/v1/index/home?").then(res => {
+				request("/v1/index/home?").then(res => {
 					var res = res.data;
 					this.tabList = res.tabList;
 					this.tabList.forEach((item, index) => {
@@ -80,7 +80,7 @@
 					if (this.loading[this.activeIndex]) return;
 					if (this.finished[this.activeIndex]) return;
 					this.loading[this.activeIndex] = true;
-					request("/baidu/v1/index/recom?" + this.nextUrls[this.activeIndex] || ""
+					request("/v1/index/recom?" + this.nextUrls[this.activeIndex] || ""
 					).then(res => {
 						var res = res.data;
 						this.tabData[this.activeIndex] = [

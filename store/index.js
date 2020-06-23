@@ -34,7 +34,7 @@ export default new Vuex.Store({
 		// 设置收藏数据
 		setAllFavData(context, payload) {
 			return new Promise((resolve, reject) => {
-				request("/baidu/v1/fav/favList?", {
+				request("/v1/fav/favList?", {
 					type: payload.type,
 					page: payload.page
 				}).then(res => {

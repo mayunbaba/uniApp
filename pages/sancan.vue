@@ -121,7 +121,7 @@
 				if (that.isFisrt) {
 					tip.loading();
 				}
-				request("/baidu/v1/Index/sancan", params).then(res => {
+				request("/v1/Index/sancan", params).then(res => {
 					tip.loaded();
 					if (res.code == 10000) {
 						if (that.isFisrt) {

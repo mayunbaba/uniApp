@@ -77,7 +77,7 @@
 					page: that.page,
 					code: that.code
 				};
-				request("/baidu/v1/Index/TopicInfo", params).then(res => {
+				request("/v1/Index/TopicInfo", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.model = res.data.data;
 						that.list = [...that.list, ...res.data.data.dishList];
@@ -108,7 +108,7 @@
 					code: that.code,
 					type: 2
 				};
-				request("/baidu/v1/Favorites/editFavorites", params).then(res => {
+				request("/v1/Favorites/editFavorites", params).then(res => {
 					if (res.code == 10000 && res.data) {
 						that.model.isFavorites = res.data.status;
 						if (res.data.status == 2) {
