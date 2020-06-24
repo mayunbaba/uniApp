@@ -156,10 +156,8 @@
 				}
 			},
 			logout() {
-				store.commit("setUserInfo", {})
-				// swan.removeTabBarBadge({
-				// 	index: 2
-				// });
+				store.commit("setUserInfo", {});
+				store.commit("setMsgNum", '0');
 				// 修改状态
 				uni.reLaunch({
 					url: '/pages/home'

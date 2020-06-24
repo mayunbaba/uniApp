@@ -52,7 +52,7 @@
 						<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
 					</view>
 					<!-- #endif -->
-					<picTextCard :item="item" @click="navTo('/pages/videoDetail?dishCode=' + item.code,'redirect')" />
+					<picTextCard :item="item" @click="navTo('/pages/videoDetail?dishCode=' + item.code)" />
 				</block>
 				<bottomLoadMore :show="!showBottomText"></bottomLoadMore>
 				<bottomText :show="showBottomText"></bottomText>
@@ -175,15 +175,15 @@
 			},
 
 			goHome() {
-				wepy.switchTab({
+				uni.switchTab({
 					url: '/pages/home?'
 				});
 			},
 
 			// 页面跳转
 			navTo(url, openType) {
-				this.videoContext = uni.createVideoContext(this.model.code);
-				this.videoContext.pause();
+				// this.videoContext = uni.createVideoContext(this.model.code);
+				// this.videoContext.pause();
 				utils.xhNavigateTo(url, openType);
 			},
 
