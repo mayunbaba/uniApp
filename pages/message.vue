@@ -1,16 +1,15 @@
 <template>
 
 	<view>
-		<noLogin :show="showNoLogin" :text="text" :imgSrc="imgSrc" :button="button" :buttonUrl="buttonUrl"
-		 :islogin="islogin"></noLogin>
+		<noLogin :show="showNoLogin" :text="text" :imgSrc="imgSrc" :button="button" :buttonUrl="buttonUrl" :islogin="islogin"></noLogin>
 		<view v-if="!showNologin">
-			<scroll-view scroll-y class="message-page" :style="'height:' + (showNoLogin ? 0 : '') + 'px'" @scrolltoupper="upper"
+			<scroll-view scroll-y class="message-page"  v-if="!showNologin" @scrolltoupper="upper"
 			 @scrolltolower="lower" upper-threshold="10" lower-threshold="150" scroll-top="scrollTop">
 				<!--加载更多时动画-->
 				<!-- <topLoadMore :show="showTopLoading"></topLoadMore> -->
 				<view class="message-wrap">
 					<view :class="'message-item ' + (item.state == 1 ? 'bg-yellow' : '')" v-for="(item, index) in msgList" :key="index"
-					 @click="'goComment(' + item + ',' + index + ')'">
+					 @click="goComment(item,index)">
 						<image :src="item.customer.img" class="header-img" mode="aspectFit"></image>
 						<view class="r-item">
 							<view class="message">
@@ -75,9 +74,16 @@
 			};
 		},
 
-		onLoad() {
+		onShow() {
+			tip.loading();
+			this.scrollTop = 0;
+			this.lastId = '';
+			this.showLoading = false;
+			this.showTopLoading = false;
+			this.showBottomText = false;
+			this.msgList = [];
 			this.getUserInfo();
-			if(this.islogin){
+			if (this.islogin) {
 				this.getMsgList();
 			}
 		},
@@ -141,6 +147,7 @@
 			},
 
 			upper: e => {
+				console.log(1);
 				if (!this.isOk) {
 					return;
 				}
@@ -177,7 +184,7 @@
 <style lang="less">
 	.message-page {
 		width: 100vw;
-		height: 100vh;
+		height: calc(100vh - 48px);
 
 		.message-wrap {
 			padding-bottom: 20rpx;
