@@ -136,8 +136,6 @@
 
 			// 评论页面
 			goComment(item, index) {
-				// console.log(item, index);
-				this.$parent.globalData.msgList[index].state = 2;
 				utils.xhNavigateTo('/pages/comment?type=' + item.params.type + '&code=' + item.params.code + '&commentId=' + item.params
 					.commentId + '&replayId=' + item.params.replayId + '&source=' + item.params.source + '&from=' + item.params.from);
 			},
@@ -174,8 +172,6 @@
 				this.getMsgList();
 			}
 		},
-		computed: {},
-		watch: {}
 	};
 </script>
 <style lang="less">
