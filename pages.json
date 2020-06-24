@@ -19,10 +19,10 @@
 		{
 			"path": "pages/comment"
 		},
+		// #endif
 		{
 			"path": "pages/videoDetail"
 		},
-		// #endif
 		{
 			"path": "pages/sancan",
 			"style": {
