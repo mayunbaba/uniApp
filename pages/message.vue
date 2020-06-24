@@ -6,7 +6,7 @@
 			<scroll-view scroll-y class="message-page"  v-if="!showNologin" @scrolltoupper="upper"
 			 @scrolltolower="lower" upper-threshold="10" lower-threshold="150" scroll-top="scrollTop">
 				<!--加载更多时动画-->
-				<!-- <topLoadMore :show="showTopLoading"></topLoadMore> -->
+				<topLoadMore :show="showTopLoading"></topLoadMore>
 				<view class="message-wrap">
 					<view :class="'message-item ' + (item.state == 1 ? 'bg-yellow' : '')" v-for="(item, index) in msgList" :key="index"
 					 @click="goComment(item,index)">
@@ -24,9 +24,9 @@
 						</view>
 					</view>
 					<!--加载更多时动画-->
-					<bottomLoadMore :show.sync="showLoading"></bottomLoadMore>
+					<bottomLoadMore :show="showLoading"></bottomLoadMore>
 					<!--默认text-->
-					<bottomText :show.sync="showBottomText"></bottomText>
+					<bottomText :show="showBottomText"></bottomText>
 				</view>
 			</scroll-view>
 		</view>
@@ -45,6 +45,7 @@
 	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from "@/components/common/bottomText";
 	import NoLogin from '@/module/noLogin.vue';
+	import TopLoadMore from '@/components/common/topLoadMore.vue';
 
 	export default {
 		data() {
@@ -55,7 +56,7 @@
 				//滚动条高度
 				msgList: [],
 				//消息列表
-				refresh: true,
+				refresh: false,
 				showLoading: false,
 				//是否显示 底部loading
 				showTopLoading: false,
@@ -74,22 +75,22 @@
 			};
 		},
 
-		onShow() {
+		onLoad() {
 			tip.loading();
-			this.scrollTop = 0;
-			this.lastId = '';
-			this.showLoading = false;
-			this.showTopLoading = false;
-			this.showBottomText = false;
-			this.msgList = [];
 			this.getUserInfo();
 			if (this.islogin) {
 				this.getMsgList();
 			}
 		},
+		onShow(){
+			if(!this.refresh) return;
+			if(this.msgList.length < 8){
+				this.upper();
+			}
+		},
 		components: {
 			bottomLoadMore: BottomLoadMore,
-			// topLoadMore: TopLoadMore,
+			topLoadMore: TopLoadMore,
 			bottomText: BottomText,
 			noLogin: NoLogin
 		},
@@ -114,6 +115,7 @@
 					if (res.code == 10000) {
 						this.isOk = true;
 						this.showLoading = false;
+						this.refresh = true;
 						this.hasMore = res.data.isEnd == 1 ? true : false;
 						if (arg == 'refresh') {
 							this.showTopLoading = false;
@@ -146,14 +148,11 @@
 					.commentId + '&replayId=' + item.params.replayId + '&source=' + item.params.source + '&from=' + item.params.from);
 			},
 
-			upper: e => {
-				console.log(1);
+			upper() {
 				if (!this.isOk) {
 					return;
 				}
-
 				this.isOk = false;
-				if (this.refresh) return false;
 				this.showTopLoading = true;
 				this.lastId = '';
 				this.hasMore = true;
@@ -162,7 +161,8 @@
 					this.getMsgList('refresh');
 				}, 500);
 			},
-			lower: e => {
+			lower(){
+				console.log(this.hasMore);
 				if (!this.hasMore) {
 					this.showLoading = false;
 					return;
