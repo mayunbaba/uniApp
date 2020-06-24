@@ -97,7 +97,6 @@
 					tip.loaded();
 				} else {
 					this.islogin = true;
-					this.getMsgList();
 				}
 			},
 

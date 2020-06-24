@@ -67,8 +67,14 @@ export default new Vuex.Store({
 
 	mutations: {
 		setUserInfo(state, payload) {
-			uni.setStorageSync('userInfo', JSON.stringify(payload));
-			Vue.set(state, 'userInfo', payload);
+			if(payload.code){
+				uni.setStorageSync('userInfo', JSON.stringify(payload));
+				Vue.set(state, 'userInfo', payload);
+			}else{
+				uni.setStorageSync('userInfo', JSON.stringify({"code":payload.user_code}));
+				Vue.set(state.userInfo, 'code', payload.user_code);
+			}
+			
 		},
 
 		setToken(state, payload) {

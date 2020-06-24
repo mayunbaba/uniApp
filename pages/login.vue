@@ -15,7 +15,7 @@
 		</view>
 		<view :class="'login ' + (isLogin ? 'login-btn' : '')" @click="login">登录</view>
 
-		<!-- <view class="bd-login" @click="bdLogin">百度授权快捷登录</view> -->
+		<view class="bd-login" @click="bdLogin">百度授权快捷登录</view>
 	</view>
 
 </template>
@@ -142,6 +142,53 @@
 				});
 			},
 
+			bdLogin() {
+			    uni.login({
+			      success: res => {
+			        request('/V1/Login/getSessionKey?', {
+			          code: res.code
+			        }).then(res => {
+			          if (res.code == 10000 && res.data) {
+			            this.session_key = res.data.session_key;
+			            this.record_id = res.data.record_id;
+			            this.open_id = res.data.open_id;
+			            if (res.data.is_login == 2) {
+										store.commit("setUserInfo", res.data)
+			              this.back();
+			            } else {
+			              uni.getPhoneNumber({
+			                success: res => {
+			                  request('/V1/Login/loginByBdAuth?', {
+			                    encrypted_json: JSON.stringify(res),
+			                    record_id: this.record_id,
+			                    session_key: this.session_key,
+			                    open_id: this.open_id
+			                  }).then(res => {
+			                    if (res.code == 10000 && res.data) {
+														store.commit("setUserInfo", res.data)
+			                      this.back();
+			                    }
+			                  });
+			                },
+			                fail: res => {
+			                  uni.showToast({
+			                    title: '获取手机号失败，请稍等片刻~',
+			                    icon: 'none',
+			                    duration: 3000,
+			                    mask: true
+			                  });
+			                }
+			              });
+			            }
+			          }
+			        });
+			      },
+			      fail: err => {
+			        console.log('login fail', err);
+			      }
+			    });
+			  },
+			
 			timeReduce() {
 				if (!this.isOvertime) {
 					return false;

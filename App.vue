@@ -3,7 +3,6 @@
 	export default {
 		onLaunch: function() {
 			console.log('APP onLaunch');
-			uni.hideTabBar();
 			// #ifdef MP-BAIDU
 			this.$store.dispatch('setAdList');
 			// #endif
