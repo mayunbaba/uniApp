@@ -29,6 +29,7 @@ export default new Vuex.Store({
 		token: token,
 		favData: [],
 		adList: {},
+		msgNum:'0',
 	},
 
 	actions: {
@@ -60,6 +61,14 @@ export default new Vuex.Store({
 				if (res.code == 10000) {
 					context.state.adList = res.data;
 					uni.setStorageSync('adList', res.data);
+				}
+			});
+		},
+		getMsgNum(context, payload){
+			request('/v1/message/msgNums').then(res => {
+				if (res.code == 10000) {
+					context.state.msgNum = res.data.commentNum > 99 ? '99+' : res.data.commentNum;
+					uni.setStorageSync('msgNum', context.state.msgNum);
 				}
 			});
 		}

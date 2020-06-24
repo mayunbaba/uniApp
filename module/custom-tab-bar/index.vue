@@ -5,6 +5,7 @@
 			<view class="tab-bar-border"></view>
 			<view v-for="(item,index) in list" :key="index" class="tab-bar-item" :data-path="item.pagePath" :data-index="index"
 			 @click="switchTab(item.pagePath)">
+				<view v-if="item.pagePath == 'pages/message' && msgNum != 0" class="dot">{{msgNum}}</view>
 				<image :src="path === item.pagePath ? item.selectedIconPath : item.iconPath"></image>
 				<view :style="{color: path === item.pagePath ? selectedColor : textColor}">{{item.text}}</view>
 			</view>
@@ -14,8 +15,14 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex';
 	export default {
 		name: "customTabBar",
+		computed:{
+			...mapState(['msgNum'])
+		},
 		data() {
 			return {
 				"path": "pages/home",
@@ -77,6 +84,16 @@
 	}
 </script>
 <style>
+	.dot{
+		padding:1px 6px;
+		background-color: #f00;
+		position: absolute;
+		border-radius: 6px;
+		color: #FFFFFF;
+		top: 0;
+		left: 50%;
+		font-size: 10px;
+	}
 	.tab-bar-height {
 		width: 100%;
 		height: 48px;
@@ -111,6 +128,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+		position: relative;
 	}
 
 	.tab-bar-item image {

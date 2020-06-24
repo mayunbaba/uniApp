@@ -3,10 +3,8 @@
 	<view>
 		<noLogin :show="showNoLogin" :text="text" :imgSrc="imgSrc" :button="button" :buttonUrl="buttonUrl" :islogin="islogin"></noLogin>
 		<view v-if="!showNologin">
-			<scroll-view scroll-y class="message-page"  v-if="!showNologin" @scrolltoupper="upper"
-			 @scrolltolower="lower" upper-threshold="10" lower-threshold="150" scroll-top="scrollTop">
+			<scroll-view scroll-y class="message-page" v-if="!showNologin" @scrolltolower="lower" lower-threshold="150">
 				<!--加载更多时动画-->
-				<topLoadMore :show="showTopLoading"></topLoadMore>
 				<view class="message-wrap">
 					<view :class="'message-item ' + (item.state == 1 ? 'bg-yellow' : '')" v-for="(item, index) in msgList" :key="index"
 					 @click="goComment(item,index)">
@@ -45,14 +43,12 @@
 	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from "@/components/common/bottomText";
 	import NoLogin from '@/module/noLogin.vue';
-	import TopLoadMore from '@/components/common/topLoadMore.vue';
 
 	export default {
 		data() {
 			return {
 				userInfo: '',
 				lastId: '',
-				scrollTop: 0,
 				//滚动条高度
 				msgList: [],
 				//消息列表
@@ -82,15 +78,8 @@
 				this.getMsgList();
 			}
 		},
-		onShow(){
-			if(!this.refresh) return;
-			if(this.msgList.length < 8){
-				this.upper();
-			}
-		},
 		components: {
 			bottomLoadMore: BottomLoadMore,
-			topLoadMore: TopLoadMore,
 			bottomText: BottomText,
 			noLogin: NoLogin
 		},
@@ -119,6 +108,7 @@
 						this.hasMore = res.data.isEnd == 1 ? true : false;
 						if (arg == 'refresh') {
 							this.showTopLoading = false;
+							 uni.stopPullDownRefresh();
 							uni.showToast({
 								title: '更新成功',
 								icon: 'none',
@@ -148,7 +138,7 @@
 					.commentId + '&replayId=' + item.params.replayId + '&source=' + item.params.source + '&from=' + item.params.from);
 			},
 
-			upper() {
+			onPullDownRefresh() {
 				if (!this.isOk) {
 					return;
 				}
@@ -156,24 +146,19 @@
 				this.showTopLoading = true;
 				this.lastId = '';
 				this.hasMore = true;
-				setTimeout(() => {
-					this.msgList = [];
-					this.getMsgList('refresh');
-				}, 500);
+				tip.loading();
+				this.msgList = [];
+				this.getMsgList('refresh');
 			},
-			lower(){
-				console.log(this.hasMore);
+			lower() {
 				if (!this.hasMore) {
 					this.showLoading = false;
 					return;
 				}
-
 				this.showLoading = true;
-
 				if (!this.isOk) {
 					return;
 				}
-
 				this.isOk = false;
 				this.lastId = this.msgList[this.msgList.length - 1].id;
 				this.getMsgList();

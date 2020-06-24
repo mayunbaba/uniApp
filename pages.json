@@ -13,7 +13,8 @@
 		{
 			"path": "pages/message",
 			"style": {
-				"navigationBarTitleText": "消息"
+				"navigationBarTitleText": "消息",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -61,15 +62,14 @@
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
-			
+
 		}
 	],
 	"globalStyle": {
 		"navigationBarBackgroundColor": "#1b1b1f",
 		"navigationBarTitleText": "香哈菜谱",
 		"navigationBarTextStyle": "white",
-		"backgroundTextStyle": "light",
-		"enablePullDownRefresh": false
+		"backgroundTextStyle": "light"
 	},
 	"tabBar": {
 		"textColor": "#dddddd",
