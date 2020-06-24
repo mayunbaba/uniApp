@@ -90,6 +90,11 @@ export default new Vuex.Store({
 			uni.setStorageSync('token', JSON.stringify(payload));
 			Vue.set(state, 'token', payload);
 		},
+		
+		setMsgNum(state, payload) {
+			uni.setStorageSync('msgNum', 0);
+			state.msgNum = payload;
+		},
 
 		initFavData(state, payload) {
 			Vue.set(state, 'favData', payload);

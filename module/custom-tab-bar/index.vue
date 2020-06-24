@@ -5,7 +5,7 @@
 			<view class="tab-bar-border"></view>
 			<view v-for="(item,index) in list" :key="index" class="tab-bar-item" :data-path="item.pagePath" :data-index="index"
 			 @click="switchTab(item.pagePath)">
-				<view v-if="item.pagePath == 'pages/message' && msgNum != 0" class="dot">{{msgNum}}</view>
+				<view v-show="msgNum != 0 && item.pagePath == 'pages/message'" class="dot">{{msgNum}}</view>
 				<image :src="path === item.pagePath ? item.selectedIconPath : item.iconPath"></image>
 				<view :style="{color: path === item.pagePath ? selectedColor : textColor}">{{item.text}}</view>
 			</view>

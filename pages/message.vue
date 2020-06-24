@@ -78,6 +78,9 @@
 				this.getMsgList();
 			}
 		},
+		onShow(){
+			this.$store.commit('setMsgNum','0');
+		},
 		components: {
 			bottomLoadMore: BottomLoadMore,
 			bottomText: BottomText,
