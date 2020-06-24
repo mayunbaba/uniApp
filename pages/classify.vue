@@ -122,7 +122,7 @@
 
 			.tab-panel {
 				height: 100%;
-				padding: 0 30rpx;
+				padding: 30rpx 30rpx;
 				box-sizing: border-box;
 				font-size: 28rpx;
 				color: #dfdfdf;
