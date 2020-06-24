@@ -34,12 +34,14 @@
 						"iconPath": "/static/images/classify-icon.png",
 						"selectedIconPath": "/static/images/classify-active-icon.png"
 					},
+					// #ifdef MP-BAIDU
 					{
 						"pagePath": "pages/message",
 						"text": "消息",
 						"iconPath": "/static/images/comment.png",
 						"selectedIconPath": "/static/images/comment-active.png"
 					},
+					// #endif
 					{
 						"pagePath": "pages/user",
 						"text": "我的",

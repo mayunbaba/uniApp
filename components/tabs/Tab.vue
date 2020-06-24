@@ -81,5 +81,8 @@ export default {
 		height: 3px;
 		background: #f00;
 	}
+	.title{
+		font-weight: bold;
+	}
 }
 </style>

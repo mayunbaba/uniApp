@@ -14,8 +14,9 @@
 		<view class="agree">首次登录自动创建账号，并默认同意<view @click="goAgreement" class="agreement">《香哈用户协议》</view>
 		</view>
 		<view :class="'login ' + (isLogin ? 'login-btn' : '')" @click="login">登录</view>
-
+		<!-- #ifdef MP-BAIDU -->
 		<view class="bd-login" @click="bdLogin">百度授权快捷登录</view>
+		<!-- #endif -->
 	</view>
 
 </template>
