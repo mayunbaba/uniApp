@@ -9,7 +9,7 @@
 				"navigationBarTitleText": "分类"
 			}
 		},
-		// #ifdef MP-BAIDU || APP-PLUS
+		// #ifdef MP-BAIDU
 		{
 			"path": "pages/message",
 			"style": {
@@ -87,7 +87,7 @@
 				"iconPath": "/static/images/classify-icon.png",
 				"selectedIconPath": "/static/images/classify-active-icon.png"
 			},
-			// #ifdef MP-BAIDU || APP-PLUS
+			// #ifdef MP-BAIDU
 			{
 				"pagePath": "pages/message",
 				"text": "消息",
