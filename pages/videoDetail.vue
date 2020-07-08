@@ -131,7 +131,7 @@
 			// 收藏
 			setLike() {
 				let that = this;
-				if (!that.userInfo.code) {
+				if (! this.$store.state.userInfo.code) {
 					utils.xhNavigateTo('/pages/login?');
 					return;
 				}
