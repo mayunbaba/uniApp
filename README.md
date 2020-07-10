@@ -1,6 +1,8 @@
 开发过程遇到问题
-1.子组件遍历多个slot，父组件拿不到子组件数据（瀑布流布局中，未实现瀑布流组件与单个卡片分离）
-2.vuex store挂载到vue父类（需要采用mapState，mapMutations来使用）
+1.子组件遍历多个slot，父组件拿不到子组件数据
+	（瀑布流布局中，未实现瀑布流组件与单个卡片分离）
+2.vuex store挂载到vue父类
+	（需要采用mapState，mapMutations来使用）
 3.微信小程序中 :style = "Object" 会出现无法解析的情况
 4.createSelectorQuery
 	微信中需要添加.in(this)  this为DOM节点所在组件，this.$children[0] 角标为组件在页面的引入顺序
