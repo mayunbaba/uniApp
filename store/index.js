@@ -28,7 +28,7 @@ export default new Vuex.Store({
 		userInfo: userInfo,
 		token: token,
 		favData: [],
-		adList: {},
+		adList: null,
 		msgNum:'0',
 	},
 

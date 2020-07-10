@@ -41,7 +41,6 @@
 					<view class="title">热门推荐</view>
 				</view>
 				<block v-for="(item,index) in recipeList" :key="index">
-					<!-- #ifdef MP-BAIDU -->
 					<view class="ad-wrap" v-if="index == 0 && showAd">
 						<xhAdBox :adPos = '"recommend1"' :show="showAd"></xhAdBox>
 					</view>
@@ -51,7 +50,6 @@
 					<view class="ad-wrap" v-if="index == 11 && showAd">
 						<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
 					</view>
-					<!-- #endif -->
 					<picTextCard :item="item" @click="navTo('/pages/videoDetail?dishCode=' + item.code)" />
 				</block>
 				<bottomLoadMore :show="!showBottomText"></bottomLoadMore>
@@ -75,6 +73,7 @@
 	import BottomText from '@/components/common/bottomText';
 	import picTextCard from '@/components/common/picTextCard.vue';
 	import xhAdBox from '@/components/common/xhAdBox.vue';
+	import {mapState} from 'vuex';
 
 	export default {
 		data() {
@@ -86,8 +85,11 @@
 				recipeList: [],
 				page: 1,
 				videoContext: null,
-				showAd:true,
+				showAd:!!this.adList,
 			}
+		},
+		computed:{
+			...mapState(['adList'])
 		},
 		components: {
 			BottomText,

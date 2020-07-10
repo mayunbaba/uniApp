@@ -144,7 +144,6 @@
 					<image :src="nyfData.img" @click="navTo('/pages/h5?path=' + nyfData.url,'')" class="nyf-banner" mode="aspectFit"
 					 v-if="nyfData.img"></image>
 					<block v-for="(item,index) in recipeList" :key="item">
-						<!-- #ifdef MP-BAIDU -->
 						<view class="ad-wrap" v-if="index == 0 && showAd">
 							<xhAdBox :adPos = '"recommend1"' :show="showAd"></xhAdBox>
 						</view>
@@ -154,7 +153,6 @@
 						<view class="ad-wrap" v-if="index == 7 && showAd">
 							<xhAdBox :adPos = '"recommend3"' :show="showAd"></xhAdBox>
 						</view>
-						<!-- #endif -->
 						<searchItem :item="item" @click="navTo('/pages/recipeDetail?dishCode=' + item.code,openType)"></searchItem>
 					</block>
 					<bottomText :show.sync="showBottomText"></bottomText>
@@ -178,6 +176,7 @@
 	import searchItem from '@/components/common/searchItem.vue';
 	import BottomBar from '@/components/common/bottomBar.vue';
 	import xhAdBox from '@/components/common/xhAdBox.vue';
+	import {mapState} from 'vuex';
 
 	export default {
 		data() {
@@ -214,8 +213,11 @@
 				// 显示底部语
 				makeUrl: [],
 				pageInfo: null,
-				showAd:true
+				showAd:!!this.adList
 			};
+		},
+		computed:{
+			...mapState(['adList'])
 		},
 
 		onLoad(options) {
@@ -229,6 +231,7 @@
 			that.getWouldList(); // 做法数据
 			that.getRecipeList(); // 相关菜谱数据
 		},
+		
 
 
 		components: {

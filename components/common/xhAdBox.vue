@@ -1,12 +1,10 @@
 <template>
 	<view class="center">
-		<!-- #ifdef MP-BAIDU -->
 		<view v-if="adList[adPos].apid" class="ad">
 			<ad :appid="adList[adPos].appid" :apid="adList[adPos].apid" :type="adList[adPos].type"
 			:class="{'big-cover':adList[adPos].type == 'feed'}"
 			 ></ad>
 		</view>
-		<!-- #endif -->
 
 	</view>
 </template>
