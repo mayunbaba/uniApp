@@ -4,6 +4,7 @@
 2.vuex store挂载到vue父类
 	（需要采用mapState，mapMutations来使用）
 3.微信小程序中 :style = "Object" 会出现无法解析的情况
+
 4.createSelectorQuery
 	微信中需要添加.in(this)  this为DOM节点所在组件，this.$children[0] 角标为组件在页面的引入顺序
 	其他小程序添加 .in(this) 可能无法获取到组件，所以需要条件编译
