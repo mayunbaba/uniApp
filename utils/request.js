@@ -28,6 +28,12 @@ const Platfrom = '/baidu';
 const Appid = 2;
 const SecStr = 'C99283E93A44FD59';
 // #endif
+// #ifdef MP-TOUTIAO
+const Host = 'https://apielf.xiangha.com';
+const Platfrom = '/baidu';
+const Appid = 2;
+const SecStr = 'C99283E93A44FD59';
+// #endif
 // #ifdef MP-ALIPAY
 const Host = 'https://apielf.xiangha.com';
 // const Host = 'https://apielf.ixiangha.com:9906';
