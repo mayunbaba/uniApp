@@ -45,6 +45,11 @@
 					if(!oldValue || oldValue.length == 0){
 						// 旧的值为undefined
 						this.list = JSON.parse(JSON.stringify(newValue));
+						if(!this.waterData.length){
+							for (let i = 0; i < this.col; i++) {
+								this.waterData.push([]);
+							}
+						}
 						this.updateWaterfall();
 						return;
 					}
@@ -93,7 +98,7 @@
 				for (let i = 0; i < this.col; i++) {
 					try {
 						query
-							// #ifdef MP-WEIXIN
+							// #ifdef MP-WEIXIN || MP-TOUTIAO
 							.in(this)
 							// #endif
 							.select(".item" + i).boundingClientRect();
@@ -118,20 +123,21 @@
 			},
 		},
 		created() {
-			for (let i = 0; i < this.col; i++) {
-				this.waterData.push([]);
+			if(!this.waterData.length){
+				for (let i = 0; i < this.col; i++) {
+					this.waterData.push([]);
+				}
 			}
-			// this.list = JSON.parse(JSON.stringify(this.allData));
 			this.$nextTick(() => {
-				// this.updateWaterfall();
 				let query = uni.createSelectorQuery();
 				query
-					// #ifdef MP-WEIXIN
+					// #ifdef MP-WEIXIN || MP-TOUTIAO
 					.in(this)
 					// #endif
 					.select('.water-fall')
 					.boundingClientRect(res => {
 						if (res) {
+							console.log(this.imgWid);
 							this.imgWid = (res.width - 15) / this.col;
 						}
 					})

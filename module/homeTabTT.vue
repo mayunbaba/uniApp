@@ -1,9 +1,11 @@
 <template>
 	<view class="home-tab">
-		<xhtabs>
-			<xhtab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name" activeColor="red" v-model="activeIndex"
-			 @click="tabChange"></xhtab>
-		</xhtabs>
+		<view class="tabs-wrap">
+			<view class="tabs">
+				<xhtab :title="item.name" :name="index" v-for="(item,index) in tabList" :key="item.name" activeColor="red" v-model="activeIndex"
+				 @click="tabChange"></xhtab>
+			</view>
+		</view>
 		<block v-for="(item,index) in tabData" :key="index" v-if="index === activeIndex">
 			<scroll-view :scroll-y="scrollActive" @scrolltolower="getRecomData" class="scroll-wrap">
 				<WaterFall :allData="item" :index="index" :col="2"></WaterFall>
@@ -21,7 +23,6 @@
 	import {
 		request
 	} from "@/utils/request.js";
-	import xhtabs from '@/components/tabs/Tabs.vue';
 	import xhtab from '@/components/tabs/Tab.vue';
 	import BottomLoadMore from "@/components/common/bottomLoadMore";
 	import BottomText from "@/components/common/bottomText";
@@ -30,7 +31,6 @@
 	export default {
 		name: "HomeTab",
 		components: {
-			xhtabs,
 			xhtab,
 			WaterFall,
 			BottomLoadMore,
@@ -80,8 +80,7 @@
 					if (this.loading[this.activeIndex]) return;
 					if (this.finished[this.activeIndex]) return;
 					this.loading[this.activeIndex] = true;
-					request("/v1/index/recom?" + this.nextUrls[this.activeIndex] || ""
-					).then(res => {
+					request("/v1/index/recom?" + this.nextUrls[this.activeIndex] || "").then(res => {
 						var res = res.data;
 						this.tabData[this.activeIndex] = [
 							...(this.tabData[this.activeIndex] || []),
@@ -118,6 +117,18 @@
 </script>
 
 <style lang="less">
+	.tabs-wrap {
+		position: relative;
+	
+		.tabs {
+			width: 100%;
+			height: 88rpx;
+			display: flex;
+			justify-content: space-around;
+			background-color: #FFFFFF;
+			border-bottom: 1rpx solid #eee;
+		}
+	}
 	.home-tab {
 		border-top: 10rpx solid #f3f3f3;
 

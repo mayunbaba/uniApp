@@ -17,6 +17,9 @@
 		<!-- #ifdef MP-BAIDU -->
 		<view class="bd-login" @click="bdLogin">百度授权快捷登录</view>
 		<!-- #endif -->
+		<!-- #ifdef MP-TOUTIAO -->
+		<view class="bd-login" @click="bdLogin">头条授权快捷登录</view>
+		<!-- #endif -->
 	</view>
 
 </template>
