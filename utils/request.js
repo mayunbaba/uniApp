@@ -30,9 +30,10 @@ const SecStr = 'C99283E93A44FD59';
 // #endif
 // #ifdef MP-TOUTIAO
 const Host = 'https://apielf.xiangha.com';
-const Platfrom = '/baidu';
-const Appid = 2;
-const SecStr = 'C99283E93A44FD59';
+// const Host = 'https://apielf.ixiangha.com:9906';
+const Platfrom = '/TouTiao';
+const Appid = 7;
+const SecStr = '300DA0FBB6662A42';
 // #endif
 // #ifdef MP-ALIPAY
 const Host = 'https://apielf.xiangha.com';

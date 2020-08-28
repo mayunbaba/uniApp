@@ -66,7 +66,7 @@
 				hasMore: true,
 				text: '登录后，查收消息通知',
 				imgSrc: '/static/images/no-login.png',
-				button: '手机号登录',
+				button: '登录',
 				buttonUrl: '/pages/login?'
 			};
 		},

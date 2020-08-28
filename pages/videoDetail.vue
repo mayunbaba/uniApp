@@ -3,8 +3,8 @@
 	<view class="recipe-detail-page">
 
 		<view class="con">
-			<block :class="'video-cloum ' + (model.video.width/model.video.height <= 1 ? '' : 'video-row')">
-				<video :class="'video-cloum ' + (model.video.width/model.video.height <= 1 ? '' : 'video-row')" :src="model.video.url"
+			<block class="video-cloum" :class="{'video-row':model.video.width/model.video.height > 1}">
+				<video class="video-cloum" :src="model.video.url" :class="{'video-row':model.video.width/model.video.height > 1}"
 				 :poster="model.video.img" controls="true" objectFit="contain" autoplay="true" :id="model.code">
 				</video>
 			</block>
