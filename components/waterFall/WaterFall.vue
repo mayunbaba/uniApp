@@ -1,5 +1,5 @@
 <template>
-	<div class="water-fall">
+	<div :class='"water-fall water-fall"+index'>
 		<div v-for="(item,index) in waterData" :key="index">
 			<div :class='"item"+index'>
 				<div v-for="($item,$index) in item" :key="$index">
@@ -36,6 +36,7 @@
 				list: [], //每次的增量数据
 				waterData: [],
 				imgWid: 160,
+				times:0,
 			};
 		},
 		
@@ -94,14 +95,24 @@
 				if (item == null) {
 					return;
 				}
+				// #ifdef MP-TOUTIAO
+				viewShortIndex = this.times%2;
+				this.times++;
+				this.waterData[viewShortIndex].push(item);
+				this.$nextTick(() => {
+					this.updateWaterfall();
+				});
+				// #endif
+				// #ifndef MP-TOUTIAO
 				let query = uni.createSelectorQuery();
 				for (let i = 0; i < this.col; i++) {
+					console.log(".water-fall" + this.index + " .item" + i);
 					try {
 						query
 							// #ifdef MP-WEIXIN || MP-TOUTIAO
 							.in(this)
 							// #endif
-							.select(".item" + i).boundingClientRect();
+							.select(".water-fall" + this.index + " .item" + i).boundingClientRect();
 					} catch {
 						console.log('无法获取dom元素')
 					}
@@ -114,12 +125,14 @@
 							return 0
 						}
 					});
+					console.log(itemH);
 					viewShortIndex = itemH.indexOf(Math.min.apply(Math, itemH));
 					this.waterData[viewShortIndex].push(item);
 					this.$nextTick(() => {
 						this.updateWaterfall();
 					});
 				});
+				// #endif
 			},
 		},
 		created() {
@@ -128,6 +141,7 @@
 					this.waterData.push([]);
 				}
 			}
+			// #ifndef MP-TOUTIAO
 			this.$nextTick(() => {
 				let query = uni.createSelectorQuery();
 				query
@@ -137,12 +151,12 @@
 					.select('.water-fall')
 					.boundingClientRect(res => {
 						if (res) {
-							console.log(this.imgWid);
 							this.imgWid = (res.width - 15) / this.col;
 						}
 					})
 					.exec();
 			});
+			// #endif
 
 
 		}
