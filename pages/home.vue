@@ -56,7 +56,12 @@
 <script>
 	import utils from "@/utils/util";
 	import searchBar from '@/components/search/searchBar.vue';
+	// #ifdef MP-TOUTIAO
+	import HomeTab from '@/module/homeTabTT.vue'
+	//#endif
+	// #ifndef MP-TOUTIAO
 	import HomeTab from '@/module/homeTab.vue'
+	// #endif
 	import {
 		request
 	} from '@/utils/request.js';

@@ -1,5 +1,10 @@
 <template>
+	<!-- #ifndef MP-TOUTIAO -->
 	<view @click="nav" class="clearfix flex item-con-btn">
+	<!-- #endif -->
+	<!-- #ifdef MP-TOUTIAO -->
+	<view @click="nav" class="clearfix flex item-con-btn icon-tt">
+	<!-- #endif -->
 		<view class="con-l type_green">
 			<image class="con-l type_green" :src="item.img"></image>
 			<!-- #ifndef MP-ALIPAY -->
@@ -45,7 +50,7 @@
 
 <style lang="less" scoped>
 	.item-con-btn {
-		margin: 36rpx 40rpx;
+		margin: 36rpx 40rpx 0;
 		display: flex;
 		align-items: center;
 
@@ -160,5 +165,9 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+	
+	.icon-tt{
+		margin: 36rpx 30rpx;
 	}
 </style>

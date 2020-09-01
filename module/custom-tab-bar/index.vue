@@ -41,7 +41,7 @@
 						"iconPath": "/static/images/classify-icon.png",
 						"selectedIconPath": "/static/images/classify-active-icon.png"
 					},
-					// #ifdef MP-BAIDU
+					// #ifdef MP-BAIDU || MP-TOUTIAO
 					{
 						"pagePath": "pages/message",
 						"text": "消息",

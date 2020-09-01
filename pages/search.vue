@@ -92,7 +92,7 @@
 				//是否展示text
 				isFisrt: true,
 				isFocus: false, // 是否在输入状态
-				showAd:!!this.adList,
+				showAd:false,
 			};
 		},
 		computed:{
@@ -117,6 +117,9 @@
 			if (uni.getStorageSync('recentSearch')) {
 				this.recentSearch = uni.getStorageSync('recentSearch');
 			}
+		},
+		onShow(){
+			this.showAd = !!this.adList;
 		},
 
 		onReachBottom() {
@@ -450,6 +453,6 @@
 			);
 	}
 	.ad-wrap{
-		margin: 36rpx 40rpx;
+		margin: 36rpx 40rpx 0;
 	}
 </style>

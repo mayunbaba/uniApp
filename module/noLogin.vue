@@ -38,7 +38,7 @@ export default {
     },
     button: {
       type: String,
-      default: '手机号登录'
+      default: '登录'
     },
     buttonUrl: {
       type: String,

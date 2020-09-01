@@ -2,7 +2,7 @@
 	export default {
 		onLaunch: function() {
 			console.log('APP onLaunch');
-			// #ifdef MP-BAIDU
+			// #ifdef MP-BAIDU || MP-TOUTIAO
 			this.$store.dispatch('setAdList');
 			this.$store.dispatch('getMsgNum');
 			// 页面销毁自动清除定时器，不用写

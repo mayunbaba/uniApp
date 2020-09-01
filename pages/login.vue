@@ -17,6 +17,10 @@
 		<!-- #ifdef MP-BAIDU -->
 		<view class="bd-login" @click="bdLogin">百度授权快捷登录</view>
 		<!-- #endif -->
+		<!-- #ifdef MP-TOUTIAO -->
+		<!-- <view class="bd-login" @click="ttLogin" v-show="!ttTelphone">头条授权快捷登录</view>
+		<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumberHandler" class="bd-login" v-show="ttTelphone">授权手机号快捷登录</button> -->
+		<!-- #endif -->
 	</view>
 
 </template>
@@ -38,14 +42,18 @@
 				publicKey: '',
 				sendTimer: '',
 				isLogin: false,
-				path:'',
+				path: '',
+				ttTelphone:false,
+				session_key:'',
+				record_id:'',
+				open_id:'',
 			};
 		},
 
 		onUnload() {
 			clearInterval(this.sendTimer);
 		},
-		onLoad(options){
+		onLoad(options) {
 			this.path = options.path
 		},
 		methods: {
@@ -68,7 +76,6 @@
 			login() {
 				if (this.tel.length == 11) {
 					if (this.code.length == 4) {
-
 						request("/v1/login/login?", {
 							tel: this.tel,
 							verifyCode: this.code
@@ -144,52 +151,94 @@
 			},
 
 			bdLogin() {
-			    uni.login({
-			      success: res => {
-			        request('/V1/Login/getSessionKey?', {
-			          code: res.code
-			        }).then(res => {
-			          if (res.code == 10000 && res.data) {
-			            this.session_key = res.data.session_key;
-			            this.record_id = res.data.record_id;
-			            this.open_id = res.data.open_id;
-			            if (res.data.is_login == 2) {
-										store.commit("setUserInfo", res.data)
-			              this.back();
-			            } else {
-			              uni.getPhoneNumber({
-			                success: res => {
-			                  request('/V1/Login/loginByBdAuth?', {
-			                    encrypted_json: JSON.stringify(res),
-			                    record_id: this.record_id,
-			                    session_key: this.session_key,
-			                    open_id: this.open_id
-			                  }).then(res => {
-			                    if (res.code == 10000 && res.data) {
-														store.commit("setUserInfo", res.data)
-			                      this.back();
-			                    }
-			                  });
-			                },
-			                fail: res => {
-			                  uni.showToast({
-			                    title: '获取手机号失败，请稍等片刻~',
-			                    icon: 'none',
-			                    duration: 3000,
-			                    mask: true
-			                  });
-			                }
-			              });
-			            }
-			          }
-			        });
-			      },
-			      fail: err => {
-			        console.log('login fail', err);
-			      }
-			    });
-			  },
-			
+				uni.login({
+					success: res => {
+						request('/V1/Login/getSessionKey?', {
+							code: res.code
+						}).then(res => {
+							if (res.code == 10000 && res.data) {
+								this.session_key = res.data.session_key;
+								this.record_id = res.data.record_id;
+								this.open_id = res.data.open_id;
+								if (res.data.is_login == 2) {
+									store.commit("setUserInfo", res.data)
+									this.back();
+								} else {
+									uni.getPhoneNumber({
+										success: res => {
+											request('/V1/Login/loginByBdAuth?', {
+												encrypted_json: JSON.stringify(res),
+												record_id: this.record_id,
+												session_key: this.session_key,
+												open_id: this.open_id
+											}).then(res => {
+												if (res.code == 10000 && res.data) {
+													store.commit("setUserInfo", res.data)
+													this.back();
+												}
+											});
+										},
+										fail: res => {
+											uni.showToast({
+												title: '获取手机号失败，请稍等片刻~',
+												icon: 'none',
+												duration: 3000,
+												mask: true
+											});
+										}
+									});
+								}
+							}
+						});
+					},
+					fail: err => {
+						console.log('login fail', err);
+					}
+				});
+			},
+			ttLogin() {
+				uni.login({
+					force: true,
+					success:res => {
+						request('/V1/Login/getSessionKey?', {
+							code: res.code
+						}).then(res => {
+							if (res.code == 10000 && res.data) {
+								this.record_id = res.data.record_id;
+								if (res.data.is_login == 2) {
+									store.commit("setUserInfo", res.data)
+									this.back();
+								} else {
+									this.ttTelphone = true;
+								}
+							}
+						});
+					},
+					fail(res) {
+						console.log(`login 调用失败`);
+					},
+				});
+			},
+			getPhoneNumberHandler(e) {
+				console.log(e.detail.errMsg);
+				console.log(e.detail.iv);
+				console.log(e.detail.encryptedData);
+				// request('/V1/Login/getSessionKey?', {
+				// 	code: res.code
+				// }).then(res => {
+				// 	if (res.code == 10000 && res.data) {
+				// 		this.session_key = res.data.session_key;
+				// 		this.record_id = res.data.record_id;
+				// 		this.open_id = res.data.open_id;
+				// 		if (res.data.is_login == 2) {
+				// 			store.commit("setUserInfo", res.data)
+				// 			this.back();
+				// 		} else {
+				// 			this.ttTelphone = true;
+				// 		}
+				// 	}
+				// });
+			},
 			timeReduce() {
 				if (!this.isOvertime) {
 					return false;
@@ -209,11 +258,11 @@
 			},
 
 			back() {
-				if(this.path){
+				if (this.path) {
 					uni.switchTab({
 						url: '/' + this.path
 					})
-				}else{
+				} else {
 					uni.navigateBack({
 						delta: 1
 					});

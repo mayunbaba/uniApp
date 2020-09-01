@@ -131,15 +131,15 @@
 				padding: 22rpx 0 16rpx 40rpx;
 
 				.item-tab {
-					display: inline-block;
 					padding: 0 26rpx;
-					// width: 118rpx;
+					width: 118rpx;
 					height: 50rpx;
 					line-height: 50rpx;
 					// margin-top: 16rpx;
 					text-align: center;
 					font-size: 28rpx;
 					color: #999999;
+					white-space: nowrap;
 
 					&.active {
 						color: #333333;

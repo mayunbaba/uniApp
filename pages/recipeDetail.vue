@@ -213,7 +213,7 @@
 				// 显示底部语
 				makeUrl: [],
 				pageInfo: null,
-				showAd:!!this.adList
+				showAd:false
 			};
 		},
 		computed:{
@@ -230,6 +230,9 @@
 			that.getMaterialList(); // 获取用料数据
 			that.getWouldList(); // 做法数据
 			that.getRecipeList(); // 相关菜谱数据
+		},
+		onShow(){
+			this.showAd = !!this.adList
 		},
 		
 

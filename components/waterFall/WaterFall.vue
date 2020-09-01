@@ -1,5 +1,5 @@
 <template>
-	<div class="water-fall">
+	<div :class='"water-fall water-fall"+index'>
 		<div v-for="(item,index) in waterData" :key="index">
 			<div :class='"item"+index'>
 				<div v-for="($item,$index) in item" :key="$index">
@@ -36,6 +36,7 @@
 				list: [], //每次的增量数据
 				waterData: [],
 				imgWid: 160,
+				times:0,
 			};
 		},
 		
@@ -45,6 +46,11 @@
 					if(!oldValue || oldValue.length == 0){
 						// 旧的值为undefined
 						this.list = JSON.parse(JSON.stringify(newValue));
+						if(!this.waterData.length){
+							for (let i = 0; i < this.col; i++) {
+								this.waterData.push([]);
+							}
+						}
 						this.updateWaterfall();
 						return;
 					}
@@ -89,14 +95,24 @@
 				if (item == null) {
 					return;
 				}
+				// #ifdef MP-TOUTIAO
+				viewShortIndex = this.times%2;
+				this.times++;
+				this.waterData[viewShortIndex].push(item);
+				this.$nextTick(() => {
+					this.updateWaterfall();
+				});
+				// #endif
+				// #ifndef MP-TOUTIAO
 				let query = uni.createSelectorQuery();
 				for (let i = 0; i < this.col; i++) {
+					console.log(".water-fall" + this.index + " .item" + i);
 					try {
 						query
-							// #ifdef MP-WEIXIN
+							// #ifdef MP-WEIXIN || MP-TOUTIAO
 							.in(this)
 							// #endif
-							.select(".item" + i).boundingClientRect();
+							.select(".water-fall" + this.index + " .item" + i).boundingClientRect();
 					} catch {
 						console.log('无法获取dom元素')
 					}
@@ -109,24 +125,27 @@
 							return 0
 						}
 					});
+					console.log(itemH);
 					viewShortIndex = itemH.indexOf(Math.min.apply(Math, itemH));
 					this.waterData[viewShortIndex].push(item);
 					this.$nextTick(() => {
 						this.updateWaterfall();
 					});
 				});
+				// #endif
 			},
 		},
 		created() {
-			for (let i = 0; i < this.col; i++) {
-				this.waterData.push([]);
+			if(!this.waterData.length){
+				for (let i = 0; i < this.col; i++) {
+					this.waterData.push([]);
+				}
 			}
-			// this.list = JSON.parse(JSON.stringify(this.allData));
+			// #ifndef MP-TOUTIAO
 			this.$nextTick(() => {
-				// this.updateWaterfall();
 				let query = uni.createSelectorQuery();
 				query
-					// #ifdef MP-WEIXIN
+					// #ifdef MP-WEIXIN || MP-TOUTIAO
 					.in(this)
 					// #endif
 					.select('.water-fall')
@@ -137,6 +156,7 @@
 					})
 					.exec();
 			});
+			// #endif
 
 
 		}
